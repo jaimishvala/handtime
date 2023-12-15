@@ -1,0 +1,60 @@
+{
+  "products": [
+    {
+      "id": 3,
+      "name": "Hydrea",
+      "price": 85,
+      "date": 2023,
+      "message": "Hydrea (hydroxyurea) is an antineoplastic (anti-cancer) agent used to treat melanoma, resistant chronic myelocytic leukemia, and recurrent, metastatic, or inoperable carcinoma of the ovary and primary squamous cell (epidermoid) carcinomas of the head and neck."
+    },
+    {
+      "id": 4,
+      "name": "Hiprex",
+      "price": 85,
+      "date": 2023,
+      "message": "Hexamethylenetetramine, also known as methenamine, hexamine, or urotropin, is a heterocyclic organic compound with the formula (CH₂)₆N₄. This white crystalline compound is highly soluble in water and polar organic solvents. It has a cage-like structure similar to adamantane"
+    },
+    {
+      "id": 5,
+      "name": "Meftal",
+      "price": 85,
+      "date": 2023,
+      "message": "Meftal Spas tablet is an antispasmodic medicine. It contains a combination of dicyclomine and mefenamic acid. This medicine is used for relieving pain and spasm in the abdomen and during or before menses (periods)."
+    },
+    {
+      "name": "Nita",
+      "date": "2023-11-30",
+      "message": "jifdhghgfhgfdjfdgiohfdiohgfdhgio111",
+      "price": 2000,
+      "id": 6
+    },
+    {
+      "name": "fgtAC",
+      "price": 200,
+      "date": "2023-11-23",
+      "message": "jifdhghgfhgfdjfdgiohfdiohgfdhgio",
+      "id": 7
+    },
+    {
+      "name": "fdg",
+      "price": 200,
+      "date": "2023-11-30",
+      "message": "jifdhghgfhgfdjfdgiohfdiohgfdhgio",
+      "id": 8
+    },
+    {
+      "name": "Nita",
+      "price": 200,
+      "date": "2023-11-23",
+      "message": "jifdhghgfhgfdjfdgiohfdiohgfdhgio",
+      "id": 9
+    },
+    {
+      "name": "lool",
+      "price": 15000,
+      "date": "2023-11-23",
+      "message": "jifdhghgfhgfdjfdgiohfdiohgfdhgio",
+      "id": 10
+    }
+  ]
+}
