@@ -1,6 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 function About(props) {
+
+    const watch = useSelector(state => state.watch)
+    console.log(watch);
+
     return (
         <div>
             <section className="about_section layout_padding">
