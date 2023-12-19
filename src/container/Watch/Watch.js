@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWatch } from '../../redux/slice/watch.slice';
 import { getProduct } from '../../redux/slice/product.slice';
 import { addCart } from '../../redux/slice/cart.slice';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 function Watch(props) {
+    const [isLoading, setIsLoading] = useState(true);
 
     const products = useSelector(state => state.products)
     console.log(products);
@@ -13,6 +16,9 @@ function Watch(props) {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 2000)
         dispatch(getProduct())
     }, [])
 
@@ -30,18 +36,22 @@ function Watch(props) {
             <div className='row'>
                 {
 
-                    products.products.map((v) => {
+                    isLoading ?
+                        <Box className="loading" sx={{ display: 'flex' }}>
+                            <CircularProgress />
+                        </Box> :
+                        products.products.map((v) => {
 
-                        return (
-                            <div className='watch col-lg-3'>
-                                <h4>{v.name}</h4>
-                                <span>{v.price}</span>
-                                <br></br><br></br>
-                                <button onClick={() => handleCart(v.id)}>Add To Card</button>
-                            </div>
-                        )
+                            return (
+                                <div className='watch col-lg-3'>
+                                    <h4>{v.name}</h4>
+                                    <span>{v.price}</span>
+                                    <br></br><br></br>
+                                    <button className='btn_cart' onClick={() => handleCart(v.id)}>Add To Card</button>
+                                </div>
+                            )
 
-                    })
+                        })
 
 
                 }
