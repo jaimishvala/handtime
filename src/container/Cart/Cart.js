@@ -3,21 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { decrementCart, deleteCart, incrementCart } from '../../redux/slice/cart.slice';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { PaymentInputsWrapper, usePaymentInputs } from 'react-payment-inputs';
-import images from 'react-payment-inputs/images';
-import 'font-awesome/css/font-awesome.min.css';
+// import { PaymentInputsWrapper, usePaymentInputs } from 'react-payment-inputs';
+// import images from 'react-payment-inputs/images';
+
 
 
 
 function Cart(props) {
 
-    const {
-        wrapperProps,
-        getCardImageProps,
-        getCardNumberProps,
-        getExpiryDateProps,
-        getCVCProps
-    } = usePaymentInputs();
+    // const {
+    //     wrapperProps,
+    //     getCardImageProps,
+    //     getCardNumberProps,
+    //     getExpiryDateProps,
+    //     getCVCProps
+    // } = usePaymentInputs();
 
 
     const dispatch = useDispatch()
@@ -226,16 +226,16 @@ function Cart(props) {
                                         </div>
                                         <div className="col-lg-4 col-xl-3">
                                             <div className="d-flex justify-content-between" style={{ fontWeight: 500 }}>
-                                                <p className="mb-2">SubTotal</p>
+                                                <p className="mb-2">SubTotal:</p>
                                                 <p className="mb-2">${total}</p>
                                             </div>
                                             <div className="d-flex justify-content-between" style={{ fontWeight: 500 }}>
-                                                <p className="mb-0">Shipping</p>
+                                                <p className="mb-0">Shipping Tax:</p>
                                                 <p className="mb-0">${Tax}</p>
                                             </div>
                                             <hr className="my-4" />
                                             <div className="d-flex justify-content-between mb-4" style={{ fontWeight: 500 }}>
-                                                <p className="mb-2">Total (tax included)</p>
+                                                <p className="mb-2">Total (tax included):</p>
                                                 <p className="mb-2">${FinalTotal}</p>
                                             </div>
                                             <button type="button" className="btn btn-primary btn-block btn-lg">
@@ -250,12 +250,12 @@ function Cart(props) {
                             </div>
 
 
-                            <PaymentInputsWrapper {...wrapperProps}>
+                            {/* <PaymentInputsWrapper {...wrapperProps}>
                                 <svg {...getCardImageProps({ images })} />
                                 <input {...getCardNumberProps()} />
                                 <input {...getExpiryDateProps()} />
                                 <input {...getCVCProps()} />
-                            </PaymentInputsWrapper>
+                            </PaymentInputsWrapper> */}
 
 
                         </div>
