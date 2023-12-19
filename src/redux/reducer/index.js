@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
-import { productsReducer } from "./product.reducer";
-import { watchSlice } from "../slice/watch.slice";
+import watchReducer from "../slice/watch.slice";
+import productsReducer from "../slice/product.slice";
+import cartReducer from "../slice/cart.slice";
 
 
 export const rootReducer = combineReducers({
     products: productsReducer,
-    watch: watchSlice
+    watch: watchReducer,
+    cart: cartReducer
 })

@@ -22,7 +22,7 @@ export const getWatch = createAsyncThunk(
 
 
 export const addWatch = createAsyncThunk(
-    'watch/get',
+    'watch/post',
     async (data) => {
         await addWatchData(data);
 
@@ -54,24 +54,24 @@ export const updateWatch = createAsyncThunk(
 export const watchSlice = createSlice({
     name: 'watch',
     initialState: initialState,
-    reducers: {
-        // getWatch: (state, action) => {
-        //     state.watch = action.payload
+    reducers: {},
+    // getWatch: (state, action) => {
+    //     state.watch = action.payload
 
-        //     state.isLoading = false;
-        //     state.watch = state.watch;
-        //     state.error = null;
-        // },
+    //     state.isLoading = false;
+    //     state.watch = state.watch;
+    //     state.error = null;
+    // },
 
-        // addWatch: (state, action) => {
-        //     state.watch = state.watch.concat(action.payload)
+    // addWatch: (state, action) => {
+    //     state.watch = state.watch.concat(action.payload)
 
-        //     state.isLoading = false;
-        //     state.watch = state.watch;
-        //     state.error = null;
-        // },
+    //     state.isLoading = false;
+    //     state.watch = state.watch;
+    //     state.error = null;
+    // },
 
-    },
+
     extraReducers: (builder) => {
         console.log(builder);
 
@@ -101,8 +101,5 @@ export const watchSlice = createSlice({
         });
     }
 });
-
-
-// export const { getWatch } = watchSlice.actions
 
 export default watchSlice.reducer;

@@ -2,7 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { addProductsData, deleteProductsData, getProductsData, updateProductsData } from "../../common/api/products.api"
 
 const initialState = {
-    products: []
+    isLoading: false,
+    products: [],
+    error: null
 }
 
 
@@ -57,12 +59,12 @@ export const productsSlice = createSlice({
             state.products = state.products.concat(action.payload);
         })
         //deleteProduct:
-        builder.addCase(addProduct.fulfilled, (state, action) => {
+        builder.addCase(deleteProduct.fulfilled, (state, action) => {
             state.products = state.products.filter((v) => v.id !== action.payload);
         })
 
         //updateProduct:
-        builder.addCase(addProduct.fulfilled, (state, action) => {
+        builder.addCase(updateProduct.fulfilled, (state, action) => {
             state.products = state.products.map((v) => {
                 if (v.id === action.payload.id) {
                     return action.payload

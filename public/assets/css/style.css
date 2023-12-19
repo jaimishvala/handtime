@@ -4,6 +4,16 @@ body {
   overflow-x: hidden;
 }
 
+
+/**********************************Watch****************/
+.watch {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  justify-content: space-between;
+  margin-right: 10px;
+  padding: 50px;
+  margin-bottom: 20px;
+}
+
 .btn_select {
   border: none;
   margin: 10px;

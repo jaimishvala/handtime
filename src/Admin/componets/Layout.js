@@ -142,7 +142,7 @@ function Layout({ children }) {
                         <ListItem
                             key={index}
                             disablePadding sx={{ display: 'block' }}
-                            content={Link}
+                            component={Link}
                             to={value.to}
                         >
                             <ListItemButton

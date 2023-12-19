@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import { Route, Routes } from 'react-router-dom';
@@ -11,10 +11,12 @@ import Testimonial from '../container/Testimonial/Testimonial';
 import Watch from '../container/Watch/Watch';
 import { useContext } from 'react';
 import ThemeContext from '../Context/theme.context';
+import Cart from '../container/Cart/Cart';
 
 function UserRoute(props) {
     const theme = useContext(ThemeContext)
     console.log(theme);
+
     return (
         <>
             <div className={`${theme.theme}`}>
@@ -22,6 +24,9 @@ function UserRoute(props) {
                 <Routes>
                     <Route exact path='/' element={<Home />} />
                     <Route exact path='/Watch' element={<Watch />} />
+                    {/* addToCart */}
+                    <Route exact path='/Cart' element={<Cart />} />
+
                     <Route exact path='/Product' element={<Product />} />
                     <Route exact path='/About' element={<About />} />
                     <Route exact path='/Contact' element={<Contact />} />

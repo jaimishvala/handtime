@@ -1,13 +1,35 @@
 import React from 'react';
 import { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import ThemeContext from '../../Context/theme.context';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import { useSelector } from 'react-redux';
 
-function Header(props) {
+import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
+
+function Header() {
   const theme = useContext(ThemeContext)
   console.log(theme);
+
+  const cart = useSelector(state => state.cart)
+  console.log(cart);
+
+  const cartCount = cart.cart.reduce((acc, v) => acc + v.qty, 0)
+  console.log(cartCount);
 
   return (
     <div>
@@ -52,12 +74,30 @@ function Header(props) {
 
 
               <div className="user_optio_box">
-                <a href="/Auth">
-                  <i className="fa fa-user" aria-hidden="true" />
-                </a>
-                <a href="/Cart">
-                  <i className="fa fa-shopping-cart" aria-hidden="true" />
-                </a>
+
+                <Link to="/Auth">
+                  <IconButton aria-label="Auth">
+                    {/* <StyledBadge badgeContent={cartCount} color="secondary"> */}
+                    {/* <ShoppingCartIcon /> */}
+                    <i className="fa fa-user" aria-hidden="true" />
+                    {/* sx={{ color: theme.theme === 'light' ? 'gray' : 'white' }} style={{ width: "20px" }} */}
+                    {/* </StyledBadge> */}
+                  </IconButton>
+                </Link>
+
+                {/* <Link to={"/Cart"}>
+                  <i className="fa fa-shopping-cart" aria-hidden="true" />{cartCount}
+                </Link> */}
+
+                <Link to="/Cart">
+                  <IconButton aria-label="cart">
+                    <StyledBadge badgeContent={cartCount} color="secondary">
+                      {/* <ShoppingCartIcon /> */}
+                      <i className="fa fa-shopping-cart" aria-hidden="true" />
+                      {/* sx={{ color: theme.theme === 'light' ? 'gray' : 'white' }} style={{ width: "20px" }} */}
+                    </StyledBadge>
+                  </IconButton>
+                </Link>
               </div>
             </div>
           </nav>

@@ -84,7 +84,7 @@ function ProductsForm({ onHandleSubmit, updateData }) {
                         will send updates occasionally.
                     </DialogContentText>
                     <TextField
-                        autoFocus
+                        // autoFocus
                         margin="dense"
                         name='name'
                         id="name"
@@ -99,7 +99,7 @@ function ProductsForm({ onHandleSubmit, updateData }) {
                     {errors.name && touched.name ? <span>{errors.name}</span> : null}
 
                     <TextField
-                        autoFocus
+                        // autoFocus
                         margin="dense"
                         name='price'
                         id="price"
@@ -114,7 +114,7 @@ function ProductsForm({ onHandleSubmit, updateData }) {
                     {errors.price && touched.price ? <span>{errors.price}</span> : null}
 
                     <TextField
-                        autoFocus
+                        // autoFocus
                         margin="dense"
                         name='date'
                         id="date"
@@ -129,7 +129,7 @@ function ProductsForm({ onHandleSubmit, updateData }) {
                     {errors.date && touched.date ? <span>{errors.date}</span> : null}
 
                     <TextField
-                        autoFocus
+                        // autoFocus
                         margin="dense"
                         name='message'
                         id="message"
