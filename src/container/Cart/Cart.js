@@ -2,23 +2,53 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { decrementCart, deleteCart, incrementCart } from '../../redux/slice/cart.slice';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useState } from 'react';
+import { Form, Formik } from 'formik';
+import * as Yup from 'yup';
 
-// import { PaymentInputsWrapper, usePaymentInputs } from 'react-payment-inputs';
-// import images from 'react-payment-inputs/images';
 
+const validationSchema = Yup.object().shape({
+    name: Yup.string().required(),
+    address1: Yup.string().required(),
+    address2: Yup.string().required(),
+    city: Yup.string().required(),
+    state: Yup.string().required(),
+    zip: Yup.string().required(),
+    country: Yup.string().required(),
+    telephone: Yup.number().required(),
+    message: Yup.string().required()
 
+});
 
 
 function Cart(props) {
+    const [step, setStep] = useState(1);
 
-    // const {
-    //     wrapperProps,
-    //     getCardImageProps,
-    //     getCardNumberProps,
-    //     getExpiryDateProps,
-    //     getCVCProps
-    // } = usePaymentInputs();
 
+    const initialValues = {
+        cartData: '',
+        name: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        zip: '',
+        country: '',
+        telephone: '',
+        message: '',
+
+    };
+
+
+    const handleNextStep = () => {
+        if (step < 3) {
+            setStep(step + 1);
+        }
+    };
+
+    const handlePreviousStep = () => {
+        setStep(step - 1);
+    };
 
     const dispatch = useDispatch()
 
@@ -99,163 +129,311 @@ function Cart(props) {
         <div className='container'>
             <h4>ADD TO CART</h4>
 
-
+            <h2>Page Step:{step}</h2>
             <section className="h-100 h-custom">
                 <div className="container h-100 py-5">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col">
 
-                            <div className="table-responsive">
-                                <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" className="h5">Shopping Bag</th>
-                                            <th scope="col">Format</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Price</th>
-                                            <th scope='col'>Action</th>
-                                        </tr>
-                                    </thead>
-                                    {
-                                        cartData.map((v) => {
-                                            return (
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div className="d-flex align-items-center">
-                                                                <img src="https://www.mastersintime.com/pictures/timex-iq-intelligent-quartz-twg013600-11784217.jpg" className="img-fluid rounded-3" style={{ width: 200 }} alt="Book" />
-                                                                <div className="flex-column ms-4">
-                                                                    <h4 className="mb-2">{v.name}</h4>
-                                                                    <span>{v.date}</span>
-                                                                    <p className="mb-0">{v.message}</p>
+
+                            <Formik
+                                initialValues={initialValues}
+                                validationSchema={validationSchema}
+                                onSubmit={(values, actions) => {
+                                    console.log(values, actions);
+                                    // Simulate API call here (e.g., using setTimeout)
+                                    setTimeout(() => {
+                                        alert('Form submitted successfully');
+                                        actions.setSubmitting(false);
+                                    }, 1000);
+                                }}
+                            >
+                                {({ isSubmitting, values, errors, touched }) => (
+                                    // <Form>
+                                    <div>
+                                        {step === 1 && (
+
+                                            <div className="table-responsive">
+                                                <table className="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" className="h5">Shopping Bag</th>
+                                                            <th scope="col">Format</th>
+                                                            <th scope="col">Quantity</th>
+                                                            <th scope="col">Price</th>
+                                                            <th scope='col'>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    {
+                                                        cartData.map((v) => {
+                                                            return (
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row">
+                                                                            <div className="d-flex align-items-center">
+                                                                                <img src="https://www.mastersintime.com/pictures/timex-iq-intelligent-quartz-twg013600-11784217.jpg" className="img-fluid rounded-3" style={{ width: 200 }} alt="Book" />
+                                                                                <div className="flex-column ms-4">
+                                                                                    <h4 className="mb-2">{v.name}</h4>
+                                                                                    <span>{v.date}</span>
+                                                                                    <p className="mb-0">{v.message}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </th>
+                                                                        <td className="align-middle">
+                                                                            <p className="mb-0" style={{ fontWeight: 500 }}>Digital</p>
+                                                                        </td>
+                                                                        <td className="align-middle">
+                                                                            <div className="d-flex flex-row">
+                                                                                <button onClick={() => handleIncrement(v.id)}>+</button>
+                                                                                <span>{v.qty}</span>
+                                                                                <button onClick={() => handleDecrement(v.id)}>-</button>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td className="align-middle">
+                                                                            <p className="mb-0" style={{ fontWeight: 500 }}>{v.price}</p>
+                                                                        </td>
+
+                                                                        <td className='align-middle'>
+                                                                            <DeleteIcon onClick={() => handleDelete(v.id)} />
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            )
+                                                        })
+                                                    }
+                                                </table>
+                                            </div>
+
+                                        )}
+
+                                        {step === 2 && (
+                                            <div className="container">
+                                                <div className="row mx-0 justify-content-center">
+                                                    <div className="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 px-xxl-3">
+                                                        <form className="w-100 rounded-1 p-4 border bg-white" action=''>
+                                                            <label className="d-block mb-4">
+                                                                <span className="form-label d-block">Your name</span>
+                                                                <input
+                                                                    name="name"
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    placeholder="Joe Bloggs"
+                                                                />
+                                                            </label>
+                                                            <label className="d-block mb-4">
+                                                                <span className="form-label d-block">Address line 1</span>
+                                                                <input
+                                                                    name="address1"
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    placeholder
+                                                                />
+                                                            </label>
+                                                            <label className="d-block mb-4">
+                                                                <span className="form-label d-block">Address line 2</span>
+                                                                <input
+                                                                    name="address2"
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    placeholder
+                                                                />
+                                                            </label>
+                                                            <label className="d-block mb-4">
+                                                                <span className="form-label d-block">City</span>
+                                                                <input
+                                                                    name="city"
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    placeholder
+                                                                />
+                                                            </label>
+                                                            <label className="d-block mb-4">
+                                                                <span className="form-label d-block">State/Province</span>
+                                                                <input
+                                                                    name="state"
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    placeholder
+                                                                />
+                                                            </label>
+                                                            <label className="d-block mb-4">
+                                                                <span className="form-label d-block">Zip/Postal code</span>
+                                                                <input
+                                                                    name="zip"
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    placeholder
+                                                                />
+                                                            </label>
+                                                            <label className="d-block mb-4">
+                                                                <span className="form-label d-block">Country</span>
+                                                                <input
+                                                                    name="country"
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    placeholder
+                                                                />
+                                                            </label>
+                                                            <label className="d-block mb-4">
+                                                                <span className="form-label d-block">Telephone</span>
+                                                                <input
+                                                                    name="telephone"
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    placeholder
+                                                                />
+                                                            </label>
+                                                            <label className="d-block mb-4">
+                                                                <span className="form-label d-block">Delivery information</span>
+                                                                <textarea
+                                                                    name="message"
+                                                                    className="form-control"
+                                                                    rows={3}
+                                                                    placeholder="floor/door lock code/etc."
+                                                                    defaultValue={""}
+                                                                />
+                                                            </label>
+                                                            <div className="mb-3">
+                                                                <button type="submit" className="btn btn-primary px-3 rounded-3">
+                                                                    Save
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        )}
+
+                                        {step === 3 && (
+                                            <div className="card shadow-2-strong mb-5 mb-lg-0" style={{ borderRadius: 16 }}>
+                                                <div className="card-body p-4">
+                                                    <div className="row">
+                                                        <div className="col-md-6 col-lg-4 col-xl-3 mb-4 mb-md-0">
+                                                            <form>
+                                                                <div className="d-flex flex-row pb-3">
+                                                                    <div className="d-flex align-items-center pe-2">
+                                                                        <input className="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1v" defaultValue aria-label="..." defaultChecked />
+                                                                    </div>
+                                                                    <div className="rounded border w-100 p-3">
+                                                                        <p className="d-flex align-items-center mb-0">
+                                                                            {/* <i className="fab fa-cc-mastercard fa-2x text-dark pe-2" /> */}
+                                                                            <img src='../../assets/images/credit.jpg' style={{ width: "30px" }} />
+                                                                            Credit Card
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="d-flex flex-row pb-3">
+                                                                    <div className="d-flex align-items-center pe-2">
+                                                                        <input className="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel2v" defaultValue aria-label="..." />
+                                                                    </div>
+                                                                    <div className="rounded border w-100 p-3">
+                                                                        <p className="d-flex align-items-center mb-0">
+                                                                            {/* <i className="fab fa-cc-visa fa-2x fa-lg text-dark pe-2" /> */}
+                                                                            <img src='../../assets/images/visa.jpg' style={{ width: "30px" }} />
+                                                                            Debit Card
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="d-flex flex-row">
+                                                                    <div className="d-flex align-items-center pe-2">
+                                                                        <input className="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel3v" defaultValue aria-label="..." />
+                                                                    </div>
+                                                                    <div className="rounded border w-100 p-3">
+                                                                        <p className="d-flex align-items-center mb-0">
+                                                                            {/* <i className="fab fa-cc-paypal fa-2x fa-lg text-dark pe-2" /> */}
+                                                                            <img src='../../assets/images/paypal.png' style={{ width: "30px" }} />
+                                                                            PayPal
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div className="col-md-6 col-lg-4 col-xl-6">
+                                                            <div className="row">
+                                                                <div className="col-12 col-xl-6">
+                                                                    <div className="form-outline mb-4 mb-xl-5">
+                                                                        <input type="text" id="typeName" className="form-control form-control-lg" siez={17} placeholder="John Smith" />
+                                                                        <label className="form-label" htmlFor="typeName">Name on card</label>
+                                                                    </div>
+                                                                    <div className="form-outline mb-4 mb-xl-5">
+                                                                        <input type="text" id="typeExp" className="form-control form-control-lg" placeholder="MM/YY" size={7} minLength={7} maxLength={7} />
+                                                                        <label className="form-label" htmlFor="typeExp">Expiration</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-12 col-xl-6">
+                                                                    <div className="form-outline mb-4 mb-xl-5">
+                                                                        <input type="text" id="typeText" className="form-control form-control-lg" siez={17} placeholder="1111 2222 3333 4444" minLength={19} maxLength={19} />
+                                                                        <label className="form-label" htmlFor="typeText">Card Number</label>
+                                                                    </div>
+                                                                    <div className="form-outline mb-4 mb-xl-5">
+                                                                        <input type="password" id="typeText" className="form-control form-control-lg" placeholder="●●●" size={1} minLength={3} maxLength={3} />
+                                                                        <label className="form-label" htmlFor="typeText">Cvv</label>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </th>
-                                                        <td className="align-middle">
-                                                            <p className="mb-0" style={{ fontWeight: 500 }}>Digital</p>
-                                                        </td>
-                                                        <td className="align-middle">
-                                                            <div className="d-flex flex-row">
-                                                                <button onClick={() => handleIncrement(v.id)}>+</button>
-                                                                <span>{v.qty}</span>
-                                                                <button onClick={() => handleDecrement(v.id)}>-</button>
+                                                        </div>
+                                                        <div className="col-lg-4 col-xl-3">
+                                                            <div className="d-flex justify-content-between" style={{ fontWeight: 500 }}>
+                                                                <p className="mb-2">SubTotal:</p>
+                                                                <p className="mb-2">${total}</p>
                                                             </div>
-                                                        </td>
-                                                        <td className="align-middle">
-                                                            <p className="mb-0" style={{ fontWeight: 500 }}>{v.price}</p>
-                                                        </td>
+                                                            <div className="d-flex justify-content-between" style={{ fontWeight: 500 }}>
+                                                                <p className="mb-0">Shipping Tax:</p>
+                                                                <p className="mb-0">${Tax}</p>
+                                                            </div>
+                                                            <hr className="my-4" />
+                                                            <div className="d-flex justify-content-between mb-4" style={{ fontWeight: 500 }}>
+                                                                <p className="mb-2">Total (tax included):</p>
+                                                                <p className="mb-2">${FinalTotal}</p>
+                                                            </div>
+                                                            <button type="button" className="btn btn-primary btn-block btn-lg">
+                                                                <div className="d-flex justify-content-between">
+                                                                    <span>Pay Bill</span>
+                                                                    <span>${FinalTotal}</span>
+                                                                </div>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
 
-                                                        <td className='align-middle'>
-                                                            <DeleteIcon onClick={() => handleDelete(v.id)} />
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
 
-                                            )
-                                        })
-                                    }
-                                </table>
-                            </div>
+                                        <div>
+                                            {step > 1 && (
+                                                <button type="button" onClick={handlePreviousStep}>
+                                                    Previous
+                                                </button>
+                                            )}
+                                            {step < 3 && (
+                                                <button
+                                                    type="button"
+                                                    onClick={handleNextStep}
+                                                    disabled={
+                                                        (step === 1 &&
+                                                            (!values.cartData))
+                                                        ||
+                                                        (step === 2 && (!values.name || !values.address1 || !values.address2 || !values.city || !values.state || !values.zip || !values.country || !values.telephone || !values.message))
+                                                    }
+                                                >
+                                                    Next
+                                                </button>
+                                            )}
+                                            {step === 3 && (
+                                                <button type="submit" disabled={isSubmitting}>
+                                                    Submit
+                                                </button>
+                                            )}
+                                        </div>
 
-                            <div className="card shadow-2-strong mb-5 mb-lg-0" style={{ borderRadius: 16 }}>
-                                <div className="card-body p-4">
-                                    <div className="row">
-                                        <div className="col-md-6 col-lg-4 col-xl-3 mb-4 mb-md-0">
-                                            <form>
-                                                <div className="d-flex flex-row pb-3">
-                                                    <div className="d-flex align-items-center pe-2">
-                                                        <input className="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1v" defaultValue aria-label="..." defaultChecked />
-                                                    </div>
-                                                    <div className="rounded border w-100 p-3">
-                                                        <p className="d-flex align-items-center mb-0">
-                                                            {/* <i className="fab fa-cc-mastercard fa-2x text-dark pe-2" /> */}
-                                                            <img src='../../assets/images/credit.jpg' style={{ width: "30px" }} />
-                                                            Credit Card
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="d-flex flex-row pb-3">
-                                                    <div className="d-flex align-items-center pe-2">
-                                                        <input className="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel2v" defaultValue aria-label="..." />
-                                                    </div>
-                                                    <div className="rounded border w-100 p-3">
-                                                        <p className="d-flex align-items-center mb-0">
-                                                            {/* <i className="fab fa-cc-visa fa-2x fa-lg text-dark pe-2" /> */}
-                                                            <img src='../../assets/images/visa.jpg' style={{ width: "30px" }} />
-                                                            Debit Card
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="d-flex flex-row">
-                                                    <div className="d-flex align-items-center pe-2">
-                                                        <input className="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel3v" defaultValue aria-label="..." />
-                                                    </div>
-                                                    <div className="rounded border w-100 p-3">
-                                                        <p className="d-flex align-items-center mb-0">
-                                                            {/* <i className="fab fa-cc-paypal fa-2x fa-lg text-dark pe-2" /> */}
-                                                            <img src='../../assets/images/paypal.png' style={{ width: "30px" }} />
-                                                            PayPal
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div className="col-md-6 col-lg-4 col-xl-6">
-                                            <div className="row">
-                                                <div className="col-12 col-xl-6">
-                                                    <div className="form-outline mb-4 mb-xl-5">
-                                                        <input type="text" id="typeName" className="form-control form-control-lg" siez={17} placeholder="John Smith" />
-                                                        <label className="form-label" htmlFor="typeName">Name on card</label>
-                                                    </div>
-                                                    <div className="form-outline mb-4 mb-xl-5">
-                                                        <input type="text" id="typeExp" className="form-control form-control-lg" placeholder="MM/YY" size={7} minLength={7} maxLength={7} />
-                                                        <label className="form-label" htmlFor="typeExp">Expiration</label>
-                                                    </div>
-                                                </div>
-                                                <div className="col-12 col-xl-6">
-                                                    <div className="form-outline mb-4 mb-xl-5">
-                                                        <input type="text" id="typeText" className="form-control form-control-lg" siez={17} placeholder="1111 2222 3333 4444" minLength={19} maxLength={19} />
-                                                        <label className="form-label" htmlFor="typeText">Card Number</label>
-                                                    </div>
-                                                    <div className="form-outline mb-4 mb-xl-5">
-                                                        <input type="password" id="typeText" className="form-control form-control-lg" placeholder="●●●" size={1} minLength={3} maxLength={3} />
-                                                        <label className="form-label" htmlFor="typeText">Cvv</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-xl-3">
-                                            <div className="d-flex justify-content-between" style={{ fontWeight: 500 }}>
-                                                <p className="mb-2">SubTotal:</p>
-                                                <p className="mb-2">${total}</p>
-                                            </div>
-                                            <div className="d-flex justify-content-between" style={{ fontWeight: 500 }}>
-                                                <p className="mb-0">Shipping Tax:</p>
-                                                <p className="mb-0">${Tax}</p>
-                                            </div>
-                                            <hr className="my-4" />
-                                            <div className="d-flex justify-content-between mb-4" style={{ fontWeight: 500 }}>
-                                                <p className="mb-2">Total (tax included):</p>
-                                                <p className="mb-2">${FinalTotal}</p>
-                                            </div>
-                                            <button type="button" className="btn btn-primary btn-block btn-lg">
-                                                <div className="d-flex justify-content-between">
-                                                    <span>Pay Bill</span>
-                                                    <span>${FinalTotal}</span>
-                                                </div>
-                                            </button>
-                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                    // </Form>
+                                )}
+                            </Formik>
 
-
-                            {/* <PaymentInputsWrapper {...wrapperProps}>
-                                <svg {...getCardImageProps({ images })} />
-                                <input {...getCardNumberProps()} />
-                                <input {...getExpiryDateProps()} />
-                                <input {...getCVCProps()} />
-                            </PaymentInputsWrapper> */}
 
 
                         </div>
