@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -16,10 +16,10 @@ export default function Review(props) {
 
     const getData = async () => {
         let response = await fetch('https://jsonplaceholder.typicode.com/comments')
-        console.log(response);
+        // console.log(response);
 
         let data = await response.json()
-        console.log(data);
+        // console.log(data);
 
         setReview(data)
     }
@@ -57,16 +57,17 @@ export default function Review(props) {
                     {
                         review.map((v) => {
                             return (
-                                <div>
-                                    <SwiperSlide>
+                                <SwiperSlide>
+                                    <div className='swiper_card'>
                                         <h2>{v.name.substring(0, 10)}</h2>
                                         <span>{v.body.substring(0, 200)}</span>
-                                    </SwiperSlide>
-                                </div>
+                                    </div>
+                                </SwiperSlide>
                             )
                         })
                     }
                 </div>
+
 
             </Swiper>
         </div>

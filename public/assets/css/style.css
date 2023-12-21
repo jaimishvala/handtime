@@ -5,6 +5,72 @@ body {
 }
 
 
+
+/*************************Swiper-Slider**************************/
+.swiper_card {
+  margin: 10px 10px;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  padding: 10px;
+  height: 200px;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-family: swiper-icons;
+  font-size: var(--swiper-navigation-size);
+  text-transform: none !important;
+  letter-spacing: 0;
+  text-transform: none;
+  font-variant: initial;
+  line-height: 1
+}
+
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
+  left: 10px;
+  border-radius: 3rem;
+  width: 50px;
+  height: 50px;
+  padding-top: 11px;
+  right: auto;
+  cursor: pointer;
+  color: black;
+  background-color: #fff;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+
+.swiper-button-prev:after,
+.swiper-container-rtl .swiper-button-next:after {
+  content: 'prev';
+  font-size: 18px;
+  margin-left: 18px;
+  font-weight: bold;
+
+}
+
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
+  border-radius: 3rem;
+  width: 50px;
+  height: 50px;
+  margin-left: 1000px;
+  cursor: pointer;
+  color: black;
+  padding-top: 11px;
+  background-color: #fff;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.swiper-button-next:after,
+.swiper-container-rtl .swiper-button-prev:after {
+  content: 'next';
+  margin-left: 22px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 /**********************************Watch****************/
 .watch {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);

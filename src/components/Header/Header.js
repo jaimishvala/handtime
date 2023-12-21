@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import ThemeContext from '../../Context/theme.context';
@@ -23,6 +23,10 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 function Header() {
+
+  // const [search, setSearch] = useState('')
+  // const [originalData, setOriginalData] = useState([]);
+
   const theme = useContext(ThemeContext)
   console.log(theme);
 
@@ -31,6 +35,34 @@ function Header() {
 
   const cartCount = cart.cart.reduce((acc, v) => acc + v.qty, 0)
   console.log(cartCount);
+
+
+  // const getData = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:3000/home");
+  //     const data = await response.json();
+  //     console.log(data);
+  //     setOriginalData(data); // Save the original data to state
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
+  // const handleSearch = (value) => {
+  //   console.log(value, search);
+
+  //   setSearch(value);
+
+  //   const fdata = originalData.filter((v) => {
+  //     return v.search.toLowerCase().includes(value.toLowerCase());
+  //   })
+
+  //   console.log(fdata);
+  // }
 
   return (
     <div>
@@ -68,12 +100,13 @@ function Header() {
               </ul>
 
 
-              <SearchIcon />
+              {/* <SearchIcon />
               <input
                 name='text'
                 type='text'
-                placeholder='find a creator'
-              />
+                placeholder='Searching...'
+              onChange={(event) => handleSearch(event.target.value)}
+              /> */}
 
 
               {
