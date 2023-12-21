@@ -30,7 +30,6 @@ function Cart(props) {
 
 
     const initialValues = {
-        cartData: '',
         name: '',
         address1: '',
         address2: '',
@@ -505,7 +504,6 @@ function Cart(props) {
                                                 </div>
                                             )}
 
-
                                             <div>
                                                 {step > 1 && (
                                                     <button className='btn_cart_1' type="button" onClick={handlePreviousStep}>
@@ -517,12 +515,12 @@ function Cart(props) {
                                                         className='btn_cart_1'
                                                         type="button"
                                                         onClick={handleNextStep}
-                                                        // disabled={
-                                                        //     (step === 1 &&
-                                                        //         (!values.cartData))
-                                                        //     ||
-                                                        //     (step === 2 && (!values.name || !values.address1 || !values.address2 || !values.city || !values.state || !values.zip || !values.country || !values.telephone || !values.message))
-                                                        // }
+                                                        disabled={
+                                                            (step === 1 &&
+                                                                cartData.length === 0 ? true : false)
+                                                            ||
+                                                            (step === 2 && (!values.name || !values.address1 || !values.address2 || !values.city || !values.state || !values.zip || !values.country || !values.telephone || !values.message))
+                                                        }
                                                     >
                                                         Next
                                                     </button>

@@ -79,9 +79,9 @@ function Product(props) {
         return fData
     }
 
-    const handleButton = (id) => {
-        console.log(id);
-    }
+    // const handleButton = (id) => {
+    //     console.log(id);
+    // }
 
     let finalData = handlesearchsort();
     // let finalData = filterData.length > 0 ? filterData : productData
@@ -127,7 +127,7 @@ function Product(props) {
                                                 <h2>{v.title}</h2>
                                                 <h3>{v.category}</h3>
                                                 <p>{v.price}</p>
-                                                <button onClick={() => handleButton(v.id)}>Add To Cart</button>
+                                                {/* <button onClick={() => handleButton(v.id)}>Add To Cart</button> */}
                                             </div>
                                         </div>
                                     )

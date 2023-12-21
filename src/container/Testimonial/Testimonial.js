@@ -1,8 +1,21 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getWatch } from '../../redux/slice/watch.slice';
 
 function Testimonial(props) {
+
+    const watch = useSelector(state => state.watch)
+    console.log(watch);
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getWatch())
+    }, [])
+
     return (
-        <div>
+        <div className='container'>
             <section className="client_section layout_padding-bottom">
                 <div className="container">
                     <div className="heading_container heading_center">
@@ -10,6 +23,22 @@ function Testimonial(props) {
                             Testimonial
                         </h2>
                     </div>
+                    <br></br><br></br><br></br>
+                    <div className='row'>
+                        {
+                            watch.watch.map((v) => {
+
+                                return (
+                                    <div className='watch col-lg-3'>
+                                        <h4>{v.name}</h4>
+                                        <h5>{v.profile_url}</h5>
+                                        <span>{v.designation}</span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+
                 </div>
                 <div id="customCarousel2" className="carousel slide" data-ride="carousel">
                     <div className="carousel-inner">

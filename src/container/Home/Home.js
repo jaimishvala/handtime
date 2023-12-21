@@ -1,4 +1,6 @@
 import React from 'react';
+import Review from './Review';
+
 
 function Home(props) {
     return (
@@ -343,6 +345,11 @@ function Home(props) {
                         </h2>
                     </div>
                 </div>
+
+                <br></br><br></br>
+
+                <Review />
+
                 <div id="customCarousel2" className="carousel slide" data-ride="carousel">
                     <div className="carousel-inner">
                         <div className="carousel-item active">

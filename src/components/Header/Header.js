@@ -10,6 +10,7 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -65,6 +66,15 @@ function Header() {
                   <NavLink className={({ isActive }) => isActive ? "nav-link scrollto active" : "nav-link scrollto"} to="/Contact" >Contact Us</NavLink>
                 </li>
               </ul>
+
+
+              <SearchIcon />
+              <input
+                name='text'
+                type='text'
+                placeholder='find a creator'
+              />
+
 
               {
                 theme.theme === 'light' ?
