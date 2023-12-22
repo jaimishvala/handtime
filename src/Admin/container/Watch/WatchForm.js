@@ -79,7 +79,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
 
     return (
         <div>
-            <h2>Smart Watch:</h2>
+            <h2>Watch:</h2>
             <Button variant="outlined" onClick={handleClickOpen}>
                 ADD Watch
             </Button>
