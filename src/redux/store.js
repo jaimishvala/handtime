@@ -8,7 +8,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['products','cart'] // only navigation will be persisted
+    whitelist: ['products', 'cart'] // only navigation will be persisted
 
 }
 
