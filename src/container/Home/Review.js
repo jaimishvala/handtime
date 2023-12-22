@@ -9,6 +9,7 @@ import 'swiper/css/pagination';
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Review(props) {
     const [review, setReview] = useState([])
@@ -58,10 +59,12 @@ export default function Review(props) {
                         review.map((v) => {
                             return (
                                 <SwiperSlide>
-                                    <div className='swiper_card'>
-                                        <h2>{v.name.substring(0, 10)}</h2>
-                                        <span>{v.body.substring(0, 200)}</span>
-                                    </div>
+                                    <Link to={"/ReviewPage/" + v.id}>
+                                        <div className='swiper_card'>
+                                            <h2>{v.name.substring(0, 10)}</h2>
+                                            <span>{v.body.substring(0, 150)}</span>
+                                        </div>
+                                    </Link>
                                 </SwiperSlide>
                             )
                         })
