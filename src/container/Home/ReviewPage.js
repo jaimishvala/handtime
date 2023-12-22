@@ -23,11 +23,12 @@ function ReviewPage(props) {
     }
 
     useEffect(() => {
+        
         getData()
     })
 
     return (
-        <>
+        <div>
             <br></br><br></br><br></br>
             <div className='container reviewPage'>
                 <h2>Review Pages:</h2>
@@ -35,7 +36,7 @@ function ReviewPage(props) {
                 <p>{review.body}</p>
             </div>
             <br></br><br></br><br></br>
-        </>
+        </div>
     );
 }
 
