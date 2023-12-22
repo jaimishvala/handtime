@@ -24,8 +24,10 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 function Header() {
 
-  // const [search, setSearch] = useState('')
   // const [originalData, setOriginalData] = useState([]);
+  // const [search, setSearch] = useState('')
+  // const [filterData, setFilterData] = useState([])
+
 
   const theme = useContext(ThemeContext)
   console.log(theme);
@@ -38,14 +40,12 @@ function Header() {
 
 
   // const getData = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:3000/home");
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setOriginalData(data); // Save the original data to state
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
+  //   let response = await fetch('https://jsonplaceholder.typicode.com/comments')
+  //   console.log(response);
+
+  //   let data = await response.json()
+  //   console.log(data);
+  //   setOriginalData(data)
   // };
 
   // useEffect(() => {
@@ -55,16 +55,25 @@ function Header() {
   // const handleSearch = (value) => {
   //   console.log(value, search);
 
-  //   setSearch(value);
+  //   setSearch(value)
 
-  //   const fdata = originalData.filter((v) => {
-  //     return v.search.toLowerCase().includes(value.toLowerCase());
+  //   let fdata = originalData.filter((v) => {
+  //     return (
+  //       v.name.toLowerCase().includes(value.toLowerCase())
+  //     )
   //   })
 
   //   console.log(fdata);
+  //   setFilterData(fdata)
+
   // }
 
+
+  // let finalData = filterData.length === 0 ? filterData : originalData
+  // console.log(finalData);
+
   return (
+
     <div>
       <header className="header_section">
         <div className="container-fluid">
@@ -105,7 +114,7 @@ function Header() {
                 name='text'
                 type='text'
                 placeholder='Searching...'
-              onChange={(event) => handleSearch(event.target.value)}
+                onChange={(event) => handleSearch(event.target.value)}
               /> */}
 
 

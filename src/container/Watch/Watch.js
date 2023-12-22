@@ -6,10 +6,11 @@ import { getProduct } from '../../redux/slice/product.slice';
 import { addCart } from '../../redux/slice/cart.slice';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import SearchIcon from '@mui/icons-material/Search';
 
 function Watch(props) {
     const products = useSelector(state => state.products)
-    console.log(products);
+    console.log(products.products);
 
     const [isLoading, setIsLoading] = useState(true);
     const [search, setSearch] = useState('')
@@ -60,7 +61,7 @@ function Watch(props) {
         setFilterData(filteredData)
     }
 
-    let finalData = filterData.length > 0 ? filterData : products
+    let finalData = filterData.length > 0 ? filterData : products.products
     console.log(finalData);
 
 
@@ -73,7 +74,7 @@ function Watch(props) {
     return (
         <div className='container'>
             <h5>Watch:</h5>
-
+            <SearchIcon />
             <input
                 type='text'
                 name='name'
@@ -89,7 +90,6 @@ function Watch(props) {
                             <CircularProgress />
                         </Box> :
                         finalData.map((v) => {
-
                             return (
                                 <div className='watch col-lg-3'>
                                     <h4>{v.name}</h4>
@@ -100,8 +100,6 @@ function Watch(props) {
                             )
 
                         })
-
-
                 }
             </div>
         </div>
