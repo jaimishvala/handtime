@@ -21,6 +21,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import WatchIcon from '@mui/icons-material/Watch';
+import CategoryIcon from '@mui/icons-material/Category';
 
 
 const drawerWidth = 240;
@@ -105,7 +106,9 @@ function Layout({ children }) {
 
     const iconItem = [
         { lebel: "Products", icon: <ProductionQuantityLimitsIcon />, to: "/Admin/Products/" },
-        { lebel: 'SmartWatch', icon: <WatchIcon />, to: "/Admin/SmartWatch/" }
+        { lebel: 'SmartWatch', icon: <WatchIcon />, to: "/Admin/SmartWatch/" },
+        { lebel: 'WatchCat', icon: <CategoryIcon />, to: "/Admin/WatchCat" },
+        { lebel: 'SubCategory', to: '/Admin/SubCategory' }
     ]
 
     return (

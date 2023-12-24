@@ -29,25 +29,11 @@
       "id": 9
     },
     {
-      "name": "ds",
-      "price": 500,
-      "date": "2023-12-27",
-      "message": "jifdhghgfhgfdjfdgiohfdiohgfdhgio",
-      "id": 10
-    },
-    {
-      "name": "assa",
-      "price": 350,
-      "date": "2023-12-20",
-      "message": "sdfsdff  sfdsdffs fsdfsdfsdf fsdf",
-      "id": 11
-    },
-    {
-      "name": "Gadar",
+      "name": "hgjDone",
       "price": 200,
-      "date": "2023-12-28",
-      "message": "sdfsdff  sfdsdffs fsdfsdfsdf fsdf",
-      "id": 12
+      "date": "2023-12-26",
+      "message": "diubfdsggfdgfdg",
+      "id": 10
     }
   ],
   "watch": [
@@ -85,6 +71,16 @@
       "designation": "hgghhghg dfjg.",
       "profile_url": "www.wwe.ok",
       "id": 5
+    }
+  ],
+  "watchcat": [
+    {
+      "name": "Gold",
+      "id": 1
+    },
+    {
+      "name": "Silver",
+      "id": 2
     }
   ]
 }

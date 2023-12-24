@@ -1,0 +1,105 @@
+import React, { useState } from 'react';
+import WatchCatForm from './WatchCatForm';
+import { DataGrid } from '@mui/x-data-grid';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { addWatchCat, deleteWatchCat, getWatchCat, updateWatchCat } from '../../../redux/slice/watchcat.slice';
+
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
+
+function WatchCat(props) {
+    const [update, setUpdate] = useState(false)
+
+    const dispatch = useDispatch()
+
+    const watchcat = useSelector(state => state.watchcat)
+    console.log(watchcat);
+
+    useEffect(() => {
+        dispatch(getWatchCat())
+    }, [])
+
+    const handleSubmitForm = (data) => {
+        console.log(data);
+        let localData = JSON.parse(localStorage.getItem("watchcat"));
+
+        let id = Math.floor(Math.random() * 1000);
+        // console.log(id);
+
+        if (localData) {
+            if (update) {
+                dispatch(updateWatchCat(data))
+            } else {
+                dispatch(addWatchCat(data))
+            }
+
+        } else {
+            localStorage.setItem("watchcat", JSON.stringify([{ id, ...data }]))
+        }
+        setUpdate(false)
+
+    }
+
+    const handleDelet = (id) => {
+        dispatch(deleteWatchCat(id))
+    }
+
+    const handleEdit = (data) => {
+        setUpdate(data)
+    }
+
+    const columns = [
+        { field: 'name', headerName: 'Name', width: 130 },
+        {
+            field: "action",
+            headerName: "Action",
+            width: 130,
+            renderCell: (params) => {
+                return (
+                    <>
+                        <IconButton aria-label="edit" onClick={() => handleEdit(params.row)}>
+                            <EditIcon />
+                        </IconButton>
+
+                        <IconButton aria-label="delete" onClick={() => handleDelet(params.row.id)}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </>
+                )
+            }
+        }
+
+    ];
+
+
+
+    return (
+        <div>
+            <h2>Watch Category</h2>
+            <WatchCatForm onHandleSubmit={handleSubmitForm} updateData={update} />
+
+            <div sx={{ height: 400, width: '100%' }}>
+                <DataGrid
+                    rows={watchcat.watchcat}
+                    columns={columns}
+                    initialState={{
+                        pagination: {
+                            paginationModel: {
+                                page: 0, pageSize: 5,
+                            },
+                        },
+                    }}
+
+                    pageSizeOptions={[5, 10]}
+                    checkboxSelection
+                />
+            </div>
+
+        </div>
+    );
+}
+
+export default WatchCat;

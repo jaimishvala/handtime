@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProductsForm from './ProductsForm';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { addProduct, getProduct,deleteProduct ,updateProduct} from '../../../redux/slice/product.slice';
+import { addProduct, getProduct, deleteProduct, updateProduct } from '../../../redux/slice/product.slice';
 
 
 function Products(props) {
