@@ -20,6 +20,11 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
     const watchcat = useSelector(state => state.watchcat)
     console.log(watchcat);
 
+
+    watchcat.watchcat.map((v) => {
+        console.log(v.id);
+    })
+
     useEffect(() => {
         if (updateData) {
             handleClickOpen()
@@ -91,7 +96,6 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                                 )
                             })
                         }
-
                     </select>
                     <br></br>
                     {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}

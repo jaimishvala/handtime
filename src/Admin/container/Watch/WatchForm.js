@@ -8,16 +8,27 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { getWatchCat } from '../../../redux/slice/watchcat.slice';
+import { getWatchSubCat } from '../../../redux/slice/watchsub.slice';
 
 function WatchForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
+    const dispatch = useDispatch()
+
+    const watchcat = useSelector(state => state.watchcat)
+    console.log(watchcat);
+
+    const watchsubcat = useSelector(state => state.watchsubcat)
+    console.log(watchsubcat);
 
     useEffect(() => {
         if (updateData) {
             handleClickOpen()
             setValues(updateData)
         }
-
+        dispatch(getWatchCat())
+        dispatch(getWatchSubCat())
     }, [updateData])
 
 
@@ -32,6 +43,12 @@ function WatchForm({ onHandleSubmit, updateData }) {
 
 
     let Watchschema = yup.object().shape({
+        category_name: yup.string()
+            .required("Please Enter Category Name")
+            .matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Category Name"),
+        sub_name: yup.string()
+            .required("Please Enter SubCategory Name")
+            .matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Name"),
         name: yup.string()
             .required("Please Enter Name")
             .matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Name"),
@@ -56,6 +73,8 @@ function WatchForm({ onHandleSubmit, updateData }) {
     const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues } = useFormik({
         validationSchema: Watchschema,
         initialValues: {
+            category_name: '',
+            sub_name: '',
             name: '',
             desc: '',
             designation: '',
@@ -91,6 +110,51 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         Some Thing Please Enter Appropriate Name,Description, Designation and
                         Profile URL.
                     </DialogContentText>
+                    <lebel>Category Name:</lebel>
+                    <select
+                        name="category_name"
+                        id="category_name"
+                        className="form-select"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.category_name}
+                    >
+
+                        <option value='category_name'>Select</option>
+                        {
+                            watchcat.watchcat.map((v) => {
+                                return (
+                                    <option>{v.category_name}</option>
+                                )
+                            })
+                        }
+
+                    </select>
+                    {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
+
+                    <br></br><br></br>
+                    <lebel>SubCategory Name:</lebel>
+                    <select
+                        name="sub_name"
+                        id="sub_name"
+                        className="form-select"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.sub_name}
+                    >
+
+                        <option value='sub_name'>Select</option>
+                        {
+                            watchsubcat.watchsubcat.map((v) => {
+                                return (
+                                    <option>{v.sub_name}</option>
+                                )
+                            })
+                        }
+
+                    </select>
+                    {errors.sub_name && touched.sub_name ? <span>{errors.sub_name}</span> : null}
+
                     <TextField
                         margin="dense"
                         id="name"
