@@ -75,12 +75,8 @@
   ],
   "watchcat": [
     {
-      "name": "Gold",
+      "category_name": "Gold",
       "id": 1
-    },
-    {
-      "name": "Silver",
-      "id": 2
     }
   ]
 }

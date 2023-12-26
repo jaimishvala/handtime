@@ -33,15 +33,15 @@ function WatchCatForm({ onHandleSubmit, updateData }) {
 
 
     const WatchcatSchema = yup.object().shape({
-        name: yup.string()
-            .required("Please Enter Name")
-            .matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Name"),
+        category_name: yup.string()
+            .required("Please Enter Category Name")
+            .matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Category Name"),
     });
 
     const { handleSubmit, handleBlur, handleChange, values, touched, errors, setValues } = useFormik({
         validationSchema: WatchcatSchema,
         initialValues: {
-            name: '',
+            category_name: '',
         },
         onSubmit: (values, action) => {
             console.log(values);
@@ -66,18 +66,18 @@ function WatchCatForm({ onHandleSubmit, updateData }) {
                     </DialogContentText>
                     <TextField
                         margin="dense"
-                        id="name"
-                        name='name'
-                        label="Enter Category"
+                        id="category_name"
+                        name='category_name'
+                        label="Enter Category Name"
                         type="text"
                         fullWidth
                         variant="standard"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.name}
+                        value={values.category_name}
                     />
 
-                    {errors.name && touched.name ? <span>{errors.name}</span> : null}
+                    {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

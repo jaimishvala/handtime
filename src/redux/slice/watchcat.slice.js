@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { addWatchCatData, deleteWatchCatData, getWatchCatData, updateWatchCatData } from "../../common/api/watchcat.api"
+import { db } from "../../firebase";
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 
 
 
@@ -11,7 +13,7 @@ const initialState = {
 
 const onLoading = (state, action) => {
     console.log(action);
-    state.isLoading = false;
+    state.isLoading = true;
     state.error = null;
 }
 
@@ -24,27 +26,49 @@ const onError = (state, action) => {
 export const getWatchCat = createAsyncThunk(
     'watchcat/get',
     async () => {
-        let respones = await getWatchCatData()
-        console.log(respones.data);
 
-        return respones.data;
+        let data = []
+
+        const querySnapshot = await getDocs(collection(db, "watchcat"));
+        querySnapshot.forEach((doc) => {
+            data.push({ ...doc.data(), id: doc.id })
+            console.log(doc.id, " => ", doc.data());
+        });
+
+        // let respones = await getWatchCatData()
+        // console.log(respones.data);
+
+        return data;
     }
 )
 
 export const addWatchCat = createAsyncThunk(
     'watchcat/post',
     async (data) => {
-        console.log(data);
-        await addWatchCatData(data)
 
-        return data;
+        try {
+            const docRef = await addDoc(collection(db, "watchcat"), data);
+            console.log("Document written with ID: ", docRef.id);
+            console.log(docRef);
+
+            return { ...data, id: docRef.id }
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+
+
+        // console.log(data);
+        // await addWatchCatData(data)
+        // return data;
     }
 )
 
 export const deleteWatchCat = createAsyncThunk(
     'watchcat/delete',
     async (id) => {
-        await deleteWatchCatData(id);
+
+        await deleteDoc(doc(db, "watchcat", id));
+        // await deleteWatchCatData(id);
 
         return id;
     }
@@ -53,8 +77,16 @@ export const deleteWatchCat = createAsyncThunk(
 export const updateWatchCat = createAsyncThunk(
     'watchcat/put',
     async (data) => {
-        await updateWatchCatData(data)
+        console.log(data);
 
+        const washingtonRef = doc(db, "watchcat", data.id);
+
+        let watchCatData = { ...data, id: data.id };
+        delete watchCatData.id;
+
+        await updateDoc(washingtonRef, watchCatData);
+
+        // await updateWatchCatData(data)
         return data;
     }
 )

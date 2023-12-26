@@ -21,8 +21,13 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
     console.log(watchcat);
 
     useEffect(() => {
+        if (updateData) {
+            handleClickOpen()
+            setValues(updateData)
+        }
         dispatch(getWatchCat())
-    }, [])
+    }, [updateData])
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -33,15 +38,18 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
     };
 
     const SubCategorySchema = yup.object().shape({
-        name: yup.string()
-            .required("Please Enter Name")
+        category_name: yup.string()
+            .required("Please Select Any One Option"),
+        sub_name: yup.string()
+            .required("Please Enter SubCategory Name")
             .matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Name"),
     });
 
     const { handleSubmit, handleBlur, handleChange, values, touched, errors, setValues } = useFormik({
         validationSchema: SubCategorySchema,
         initialValues: {
-            name: '',
+            category_name: '',
+            sub_name: '',
         },
         onSubmit: (values, action) => {
             console.log(values);
@@ -51,6 +59,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
             handleClose()
         },
     });
+
 
     return (
         <div>
@@ -65,26 +74,45 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                         will send updates occasionally.
                     </DialogContentText>
 
+                    <select
+                        name="category_name"
+                        id="category_name"
+                        className="form-select"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.category_name}
+                    >
 
-                    <select>
-                        <option>--Select--</option>
-                        <option></option>
+                        <option value='category_name'>Select</option>
+                        {
+                            watchcat.watchcat.map((v) => {
+                                return (
+                                    <option>{v.category_name}</option>
+                                )
+                            })
+                        }
+
                     </select>
+                    <br></br>
+                    {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
 
                     <TextField
-                        autoFocus
                         margin="dense"
                         id="sub_name"
                         name='sub_name'
-                        label="Enter SubName"
+                        label="Enter Sub Category Name"
                         type="text"
                         fullWidth
                         variant="standard"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.sub_name}
                     />
+                    {errors.sub_name && touched.sub_name ? <span>{errors.sub_name}</span> : null}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>add</Button>
+                    <Button onClick={handleSubmit}>{updateData ? 'update' : 'add'}</Button>
                 </DialogActions>
             </Dialog>
         </div>

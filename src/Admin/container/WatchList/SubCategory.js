@@ -1,36 +1,48 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import SubCategoryForm from './SubCategoryForm';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { addWatchSubCat, deleteWatchSubCat, getWatchSubCat, updateWatchSubCat } from '../../../redux/slice/watchsub.slice';
 
 
 function SubCategory() {
     const [update, setUpdate] = useState(false)
 
     const dispatch = useDispatch()
+    const watchsubcat = useSelector(state => state.watchsubcat)
+    console.log(watchsubcat);
 
+    useEffect(() => {
+        dispatch(getWatchSubCat())
+    }, [])
 
+    const handleSubmitForm = (data) => {
+        console.log(data);
 
-    const handleSubmitForm = () => {
-
+        if (update) {
+            dispatch(updateWatchSubCat(data))
+        } else {
+            dispatch(addWatchSubCat(data))
+        }
+        setUpdate(false)
     }
 
-    const handleEdit = () => {
-
+    const handleDelet = (id) => {
+        dispatch(deleteWatchSubCat(id))
     }
 
-    const handleDelet = () => {
+    const handleEdit = (data) => {
+        setUpdate(data)
 
     }
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 130 },
+        { field: 'category_name', headerName: 'Category Name', width: 150 },
+        { field: 'sub_name', headerName: 'SubCategory Name', width: 150 },
         {
             field: "action",
             headerName: "Action",
@@ -52,17 +64,13 @@ function SubCategory() {
 
     ];
 
-    const rows = [
-        { id: 1, name: 'Snow', age: 35 },
-    ];
-
     return (
         <div>
             <h2>Sub Category</h2>
             <SubCategoryForm onHandleSubmit={handleSubmitForm} updateData={update} />
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={rows}
+                    rows={watchsubcat.watchsubcat}
                     columns={columns}
                     initialState={{
                         pagination: {

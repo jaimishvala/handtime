@@ -4,8 +4,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { addWatchCat, deleteWatchCat, getWatchCat, updateWatchCat } from '../../../redux/slice/watchcat.slice';
-
-
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
@@ -23,24 +21,14 @@ function WatchCat(props) {
     }, [])
 
     const handleSubmitForm = (data) => {
+
         console.log(data);
-        let localData = JSON.parse(localStorage.getItem("watchcat"));
-
-        let id = Math.floor(Math.random() * 1000);
-        // console.log(id);
-
-        if (localData) {
-            if (update) {
-                dispatch(updateWatchCat(data))
-            } else {
-                dispatch(addWatchCat(data))
-            }
-
+        if (update) {
+            dispatch(updateWatchCat(data))
         } else {
-            localStorage.setItem("watchcat", JSON.stringify([{ id, ...data }]))
+            dispatch(addWatchCat(data))
         }
         setUpdate(false)
-
     }
 
     const handleDelet = (id) => {
@@ -52,7 +40,7 @@ function WatchCat(props) {
     }
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 130 },
+        { field: 'category_name', headerName: 'Category Name', width: 130 },
         {
             field: "action",
             headerName: "Action",
