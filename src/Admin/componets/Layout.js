@@ -106,8 +106,8 @@ function Layout({ children }) {
 
     const iconItem = [
         { lebel: "Products", icon: <ProductionQuantityLimitsIcon />, to: "/Admin/Products/" },
-        { lebel: 'SmartWatch', icon: <WatchIcon />, to: "/Admin/SmartWatch/" },
-        { lebel: 'WatchCat', icon: <CategoryIcon />, to: "/Admin/WatchCat" },
+        { lebel: 'Watch', icon: <WatchIcon />, to: "/Admin/SmartWatch/" },
+        { lebel: 'Category', icon: <CategoryIcon />, to: "/Admin/WatchCat" },
         { lebel: 'SubCategory', to: '/Admin/SubCategory' }
     ]
 
