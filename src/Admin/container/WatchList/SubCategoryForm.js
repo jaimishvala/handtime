@@ -21,10 +21,6 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
     console.log(watchcat);
 
 
-    watchcat.watchcat.map((v) => {
-        console.log(v.id);
-    })
-
     useEffect(() => {
         if (updateData) {
             handleClickOpen()
@@ -92,7 +88,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                         {
                             watchcat.watchcat.map((v) => {
                                 return (
-                                    <option>{v.category_name}</option>
+                                    <option value={v.id}>{v.category_name}</option>
                                 )
                             })
                         }

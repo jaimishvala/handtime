@@ -145,10 +145,20 @@ function WatchForm({ onHandleSubmit, updateData }) {
 
                         <option value='sub_name'>Select</option>
                         {
+                            // watchsubcat.watchsubcat.map((v) =>
+                            //     watchcat.watchcat.find((v1) => {
+                            //         <option>{v.category_name === v1.sub_name}</option>
+                            //     })
+                            // )
+
+
                             watchsubcat.watchsubcat.map((v) => {
+                                const correspondingCategory = watchcat.watchcat.find((v1) => v.category_name === v1.sub_name);
                                 return (
-                                    <option>{v.sub_name}</option>
-                                )
+                                    <option key={v.id} value={v.id}>
+                                        {correspondingCategory ? correspondingCategory.sub_name : ''}
+                                    </option>
+                                );
                             })
                         }
 

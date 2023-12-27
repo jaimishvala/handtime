@@ -16,14 +16,6 @@ function SubCategory() {
     const watchsubcat = useSelector(state => state.watchsubcat)
     console.log(watchsubcat);
 
-    // const watchcat = useSelector(state => state.watchcat)
-    // console.log(watchcat);
-
-
-    // watchcat.watchcat.filter((v) => {
-    //    console.log(v.id);
-    // })
-
     useEffect(() => {
         dispatch(getWatchSubCat())
     }, [])
