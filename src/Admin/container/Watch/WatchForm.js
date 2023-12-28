@@ -96,6 +96,27 @@ function WatchForm({ onHandleSubmit, updateData }) {
 
     });
 
+
+    // Category: [
+    //     {
+    //       Sub-Category: []
+    //     },
+    //     {
+    //       Sub-Category: []
+    //     }
+    //    ]
+    // <option value="">Select</option>
+    //           {medicalCategory?.response?.data?.map((value, index) => (
+    //             <optgroup label={value?.cpt_category}>
+    //               {value?.sub_categories?.map((subCategory, index) => (
+    //                 <option value={subCategory?.id}>
+    //                   {subCategory?.cpt_category}
+    //                 </option>
+    //               ))}
+    //             </optgroup>
+    //           ))}
+
+
     return (
         <div>
             <h2>Watch:</h2>
@@ -145,31 +166,20 @@ function WatchForm({ onHandleSubmit, updateData }) {
 
                         <option value=''>Select</option>
                         {
-                            // watchsubcat.watchsubcat.map((v) => {
-                            //     return (
-                            //         <option>{v.sub_name}</option>
-                            //     )
-                            // })
-
-
-                            watchsubcat.watchsubcat.map((v) => {
-                                const correspondingCategory = watchcat.watchcat.find((v1) => v1.category_name === v.sub_name);
-                                return (
-                                    <option key={v.id} value={v.id}>
-                                        {correspondingCategory ? correspondingCategory.category_name : ''}
-                                    </option>
-                                );
-                            })
+                            watchsubcat.watchsubcat.map((v) => (
+                                <option key={v.sub_name} value={v.sub_name}>
+                                    {v.sub_name}
+                                </option>
+                            ))
 
 
                             // watchsubcat.watchsubcat
-                            //     .filter((v) => v.category_name === values.category_name)
-                            //     .map((v) => (
-                            //         <option key={v.id} value={v.sub_name}>
+                            //     .filter(i => sub_name.id === sub_name)
+                            //     .map(v => (
+                            //         <option key={v.sub_name} value={v.sub_name}>
                             //             {v.sub_name}
                             //         </option>
                             //     ))
-
                         }
 
                     </select>
