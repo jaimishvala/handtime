@@ -143,23 +143,33 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         value={values.sub_name}
                     >
 
-                        <option value='sub_name'>Select</option>
+                        <option value=''>Select</option>
                         {
-                            // watchsubcat.watchsubcat.map((v) =>
-                            //     watchcat.watchcat.find((v1) => {
-                            //         <option>{v.category_name === v1.sub_name}</option>
-                            //     })
-                            // )
+                            // watchsubcat.watchsubcat.map((v) => {
+                            //     return (
+                            //         <option>{v.sub_name}</option>
+                            //     )
+                            // })
 
 
                             watchsubcat.watchsubcat.map((v) => {
-                                const correspondingCategory = watchcat.watchcat.find((v1) => v.category_name === v1.sub_name);
+                                const correspondingCategory = watchcat.watchcat.find((v1) => v1.category_name === v.sub_name);
                                 return (
                                     <option key={v.id} value={v.id}>
-                                        {correspondingCategory ? correspondingCategory.sub_name : ''}
+                                        {correspondingCategory ? correspondingCategory.category_name : ''}
                                     </option>
                                 );
                             })
+
+
+                            // watchsubcat.watchsubcat
+                            //     .filter((v) => v.category_name === values.category_name)
+                            //     .map((v) => (
+                            //         <option key={v.id} value={v.sub_name}>
+                            //             {v.sub_name}
+                            //         </option>
+                            //     ))
+
                         }
 
                     </select>
@@ -206,7 +216,6 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         value={values.designation}
                     />
                     {errors.designation && touched.designation ? <span>{errors.designation}</span> : null}
-
 
                     <TextField
                         margin="profile_url"
