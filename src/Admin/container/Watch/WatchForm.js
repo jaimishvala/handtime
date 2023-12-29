@@ -34,7 +34,6 @@ function WatchForm({ onHandleSubmit, updateData }) {
 
     const handleClickOpen = () => {
         setOpen(true);
-        // console.log("handleClickOpen");
     };
 
     const handleClose = () => {
@@ -56,12 +55,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
             .required("Please Enter a Description")
             .matches(
                 /^(.|\s)*[a-zA-Z]+(.|\s)*$/, "Please Enter a Description"),
-        // .test("desc", "Please Enter More Than 20 Word Allowed", function (value) {
-        //     // console.log(value);
-        //     if (value <= 20) {
-        //         return true;
-        //     }
-        // }),
+     
         designation: yup.string()
             .required("Please Enter a Designation")
             .matches(/^[a-z ,.'-]+$/, "Please Enter Valid Designation"),
@@ -81,41 +75,12 @@ function WatchForm({ onHandleSubmit, updateData }) {
             profile_url: '',
         },
         onSubmit: (values, action) => {
-            // console.log(values);
-
             onHandleSubmit(values)
-            // if (update) {
-            //     handleUpdateData(values)
-            // } else {
-            //     handleAdd(values)
-            // }
-            // handleAdd(values)
             action.resetForm()
             handleClose()
         },
 
     });
-
-
-    // Category: [
-    //     {
-    //       Sub-Category: []
-    //     },
-    //     {
-    //       Sub-Category: []
-    //     }
-    //    ]
-    // <option value="">Select</option>
-    //           {medicalCategory?.response?.data?.map((value, index) => (
-    //             <optgroup label={value?.cpt_category}>
-    //               {value?.sub_categories?.map((subCategory, index) => (
-    //                 <option value={subCategory?.id}>
-    //                   {subCategory?.cpt_category}
-    //                 </option>
-    //               ))}
-    //             </optgroup>
-    //           ))}
-
 
     return (
         <div>
@@ -171,15 +136,6 @@ function WatchForm({ onHandleSubmit, updateData }) {
                                     {v.sub_name}
                                 </option>
                             ))
-
-
-                            // watchsubcat.watchsubcat
-                            //     .filter(i => sub_name.id === sub_name)
-                            //     .map(v => (
-                            //         <option key={v.sub_name} value={v.sub_name}>
-                            //             {v.sub_name}
-                            //         </option>
-                            //     ))
                         }
 
                     </select>
