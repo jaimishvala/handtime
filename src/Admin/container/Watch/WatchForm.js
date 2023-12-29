@@ -11,9 +11,13 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWatchCat } from '../../../redux/slice/watchcat.slice';
 import { getWatchSubCat } from '../../../redux/slice/watchsub.slice';
+import { useState } from 'react';
 
 function WatchForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
+    const [category, setCategory] = useState()
+    const [subcategory, setSubCategory] = useState([])
+
     const dispatch = useDispatch()
 
     const watchcat = useSelector(state => state.watchcat)
@@ -55,7 +59,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
             .required("Please Enter a Description")
             .matches(
                 /^(.|\s)*[a-zA-Z]+(.|\s)*$/, "Please Enter a Description"),
-     
+
         designation: yup.string()
             .required("Please Enter a Designation")
             .matches(/^[a-z ,.'-]+$/, "Please Enter Valid Designation"),
@@ -79,8 +83,18 @@ function WatchForm({ onHandleSubmit, updateData }) {
             action.resetForm()
             handleClose()
         },
-
     });
+
+    const handleCategory = (value) => {
+        console.log(value);
+
+        let data = watchsubcat.watchsubcat.filter((v) => v.category_name === value)
+        console.log(data);
+
+        setSubCategory(data)
+    }
+
+    console.log(subcategory);
 
     return (
         <div>
@@ -101,7 +115,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         name="category_name"
                         id="category_name"
                         className="form-select"
-                        onChange={handleChange}
+                        onChange={(event) => handleCategory(event.target.value)}
                         onBlur={handleBlur}
                         value={values.category_name}
                     >
@@ -110,7 +124,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         {
                             watchcat.watchcat.map((v) => {
                                 return (
-                                    <option>{v.category_name}</option>
+                                    <option key={v.id} value={v.id}>{v.category_name}</option>
                                 )
                             })
                         }
@@ -131,7 +145,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
 
                         <option value=''>Select</option>
                         {
-                            watchsubcat.watchsubcat.map((v) => (
+                            subcategory.map((v) => (
                                 <option key={v.sub_name} value={v.sub_name}>
                                     {v.sub_name}
                                 </option>
