@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 function WatchForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
-    const [category, setCategory] = useState()
+    const [category, setCategory] = useState([])
     const [subcategory, setSubCategory] = useState([])
 
     const dispatch = useDispatch()
@@ -87,6 +87,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
 
     const handleCategory = (value) => {
         console.log(value);
+        setCategory(value)
 
         let data = watchsubcat.watchsubcat.filter((v) => v.category_name === value)
         console.log(data);
@@ -95,7 +96,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
     }
 
     console.log(subcategory);
-
+    console.log(category);
     return (
         <div>
             <h2>Watch:</h2>
@@ -117,14 +118,14 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         className="form-select"
                         onChange={(event) => handleCategory(event.target.value)}
                         onBlur={handleBlur}
-                        value={values.category_name}
+                        value={category}
                     >
 
                         <option value='category_name'>Select</option>
                         {
                             watchcat.watchcat.map((v) => {
                                 return (
-                                    <option key={v.id} value={v.id}>{v.category_name}</option>
+                                    <option value={v.id}>{v.category_name}</option>
                                 )
                             })
                         }
