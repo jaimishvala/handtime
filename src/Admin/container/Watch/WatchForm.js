@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 function WatchForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
-    const [category, setCategory] = useState([])
+    const [category, setCategory] = useState('')
     const [subcategory, setSubCategory] = useState([])
 
     const dispatch = useDispatch()
@@ -47,11 +47,9 @@ function WatchForm({ onHandleSubmit, updateData }) {
 
     let Watchschema = yup.object().shape({
         category_name: yup.string()
-            .required("Please Enter Category Name")
-            .matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Category Name"),
+            .required("Please Enter Category Name"),
         sub_name: yup.string()
-            .required("Please Enter SubCategory Name")
-            .matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Name"),
+            .required("Please Enter SubCategory Name"),
         name: yup.string()
             .required("Please Enter Name")
             .matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Name"),
@@ -85,18 +83,21 @@ function WatchForm({ onHandleSubmit, updateData }) {
         },
     });
 
-    const handleCategory = (value) => {
+
+    const handleSub = (value) => {
         console.log(value);
         setCategory(value)
 
-        let data = watchsubcat.watchsubcat.filter((v) => v.category_name === value)
-        console.log(data);
+        const fData = watchsubcat.watchsubcat.filter((v) => v.category_name === value);
 
-        setSubCategory(data)
+        console.log(fData);
+
+        setSubCategory(fData);
     }
 
     console.log(subcategory);
     console.log(category);
+    console.log(values);
     return (
         <div>
             <h2>Watch:</h2>
@@ -116,12 +117,12 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         name="category_name"
                         id="category_name"
                         className="form-select"
-                        onChange={(event) => handleCategory(event.target.value)}
+                        onChange={(e) => { handleChange(e); handleSub(e.target.value) }}
                         onBlur={handleBlur}
-                        value={category}
+                        value={values.category_name}
                     >
 
-                        <option value='category_name'>Select</option>
+                        <option value='0'>Select</option>
                         {
                             watchcat.watchcat.map((v) => {
                                 return (
@@ -144,10 +145,10 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         value={values.sub_name}
                     >
 
-                        <option value=''>Select</option>
+                        <option value='0'>Select</option>
                         {
                             subcategory.map((v) => (
-                                <option key={v.sub_name} value={v.sub_name}>
+                                <option key={v.id} value={v.id}>
                                     {v.sub_name}
                                 </option>
                             ))
