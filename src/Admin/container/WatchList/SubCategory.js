@@ -41,7 +41,7 @@ function SubCategory() {
     }
 
     const columns = [
-        { field: 'category_name', headerName: 'Category Name', width: 150 },
+        { field: 'category_name', headerName: 'Category ID', width: 150 },
         { field: 'sub_name', headerName: 'SubCategory Name', width: 150 },
         {
             field: "action",

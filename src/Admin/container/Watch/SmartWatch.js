@@ -54,8 +54,8 @@ export default function SmartWatch(props) {
 
 
     const columns = [
-        { field: 'category_name', headerName: 'Category Name', width: 130 },
-        { field: 'sub_name', headerName: 'SubCategory Name', width: 130 },
+        { field: 'category_name', headerName: 'Category ID', width: 130 },
+        { field: 'sub_name', headerName: 'SubCategory ID', width: 130 },
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'desc', headerName: 'Description', width: 130 },
         { field: 'designation', headerName: 'Designation', width: 130 },

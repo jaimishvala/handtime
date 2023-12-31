@@ -29,7 +29,7 @@ export const getWatchCat = createAsyncThunk(
 
         let data = []
 
-        const querySnapshot = await getDocs(collection(db, "watchcat"));
+        const querySnapshot = await getDocs(collection(db, "category"));
         querySnapshot.forEach((doc) => {
             data.push({ ...doc.data(), id: doc.id })
             console.log(doc.id, " => ", doc.data());
@@ -47,7 +47,7 @@ export const addWatchCat = createAsyncThunk(
     async (data) => {
 
         try {
-            const docRef = await addDoc(collection(db, "watchcat"), data);
+            const docRef = await addDoc(collection(db, "category"), data);
             console.log("Document written with ID: ", docRef.id);
             console.log(docRef);
 
@@ -67,7 +67,7 @@ export const deleteWatchCat = createAsyncThunk(
     'watchcat/delete',
     async (id) => {
 
-        await deleteDoc(doc(db, "watchcat", id));
+        await deleteDoc(doc(db, "category", id));
         // await deleteWatchCatData(id);
 
         return id;
@@ -79,7 +79,7 @@ export const updateWatchCat = createAsyncThunk(
     async (data) => {
         console.log(data);
 
-        const washingtonRef = doc(db, "watchcat", data.id);
+        const washingtonRef = doc(db, "category", data.id);
 
         let watchCatData = { ...data, id: data.id };
         delete watchCatData.id;

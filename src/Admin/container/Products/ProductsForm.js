@@ -72,7 +72,7 @@ function ProductsForm({ onHandleSubmit, updateData }) {
 
     return (
         <div>
-            <h2>Products:</h2>
+            <h2>Products Example:</h2>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Products
             </Button>
