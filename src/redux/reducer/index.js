@@ -3,7 +3,8 @@ import watchReducer from "../slice/watch.slice";
 import productsReducer from "../slice/product.slice";
 import cartReducer from "../slice/cart.slice";
 import watchcatReducer from "../slice/watchcat.slice";
-import watchsubcatReducer  from "../slice/watchsub.slice";
+import watchsubcatReducer from "../slice/watchsub.slice";
+import { authReducer } from "./auth.reducer";
 
 
 export const rootReducer = combineReducers({
@@ -11,5 +12,6 @@ export const rootReducer = combineReducers({
     watch: watchReducer,
     cart: cartReducer,
     watchcat: watchcatReducer,
-    watchsubcat:watchsubcatReducer
+    watchsubcat: watchsubcatReducer,
+    auth: authReducer
 })

@@ -3,21 +3,29 @@ import thunk from "redux-thunk"
 import { rootReducer } from "./reducer"
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import rootSaga from "./saga/rootSaga"
+import createSagaMiddleware from 'redux-saga'
+
 
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['products', 'cart'] // only navigation will be persisted
+    whitelist: ['products', 'cart','auth'] // only navigation will be persisted
 
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
+const sagaMiddleware = createSagaMiddleware()
+const Middleware = [thunk, sagaMiddleware]
 
 
 export const configureStore = () => {
-    let store = createStore(persistedReducer, applyMiddleware(thunk))
-    let persist = persistStore(store)
+    let store = createStore(persistedReducer, applyMiddleware(...Middleware))
+    sagaMiddleware.run(rootSaga)
 
-    return { store, persist };
+    return store;
 }
+
+export let store = configureStore()
+export let persist = persistStore(store)

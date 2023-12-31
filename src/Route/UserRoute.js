@@ -13,6 +13,7 @@ import { useContext } from 'react';
 import ThemeContext from '../Context/theme.context';
 import Cart from '../container/Cart/Cart';
 import ReviewPage from '../container/Home/ReviewPage';
+import PrivateRoute from './PrivateRoute';
 
 function UserRoute(props) {
     const theme = useContext(ThemeContext)
@@ -26,7 +27,9 @@ function UserRoute(props) {
                     <Route exact path='/' element={<Home />} />
                     {/* ReviewPage */}
                     <Route exact path='/ReviewPage/:id' element={<ReviewPage />} />
-                    <Route exact path='/Watch' element={<Watch />} />
+                    <Route element={<PrivateRoute />}>
+                        <Route exact path='/Watch' element={<Watch />} />
+                    </Route>
                     {/* addToCart */}
                     <Route exact path='/Cart' element={<Cart />} />
 

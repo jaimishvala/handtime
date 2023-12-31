@@ -2,14 +2,13 @@ import { Route, Routes } from 'react-router-dom';
 import UserRoute from './Route/UserRoute';
 import AdminRoute from './Route/AdminRoute';
 import { Provider } from 'react-redux';
-import { configureStore } from './redux/store';
+import { configureStore, persist, store } from './redux/store';
 import { ThemeProvider } from './Context/theme.context';
 import { PersistGate } from 'redux-persist/integration/react'
 
 
 function App() {
-  let {store,persist} = configureStore()
-
+  
   return (
     <>
       <ThemeProvider>

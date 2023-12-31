@@ -4,13 +4,12 @@ import { Link, NavLink } from 'react-router-dom';
 import ThemeContext from '../../Context/theme.context';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import SearchIcon from '@mui/icons-material/Search';
+import { logoutRequest } from '../../redux/action/auth.action';
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -24,10 +23,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 function Header() {
 
-  // const [originalData, setOriginalData] = useState([]);
-  // const [search, setSearch] = useState('')
-  // const [filterData, setFilterData] = useState([])
-
+  let auth = useSelector(state => state.auth)
+  console.log(auth);
 
   const theme = useContext(ThemeContext)
   console.log(theme);
@@ -38,39 +35,14 @@ function Header() {
   const cartCount = cart.cart.reduce((acc, v) => acc + v.qty, 0)
   console.log(cartCount);
 
+  const dispatch = useDispatch()
 
-  // const getData = async () => {
-  //   let response = await fetch('https://jsonplaceholder.typicode.com/comments')
-  //   console.log(response);
+  const handleLogOut = () => {
+    console.log("logOut");
+    dispatch(logoutRequest());
 
-  //   let data = await response.json()
-  //   console.log(data);
-  //   setOriginalData(data)
-  // };
+  }
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  // const handleSearch = (value) => {
-  //   console.log(value, search);
-
-  //   setSearch(value)
-
-  //   let fdata = originalData.filter((v) => {
-  //     return (
-  //       v.name.toLowerCase().includes(value.toLowerCase())
-  //     )
-  //   })
-
-  //   console.log(fdata);
-  //   setFilterData(fdata)
-
-  // }
-
-
-  // let finalData = filterData.length === 0 ? filterData : originalData
-  // console.log(finalData);
 
   return (
 
@@ -109,13 +81,22 @@ function Header() {
               </ul>
 
 
-              {/* <SearchIcon />
-              <input
-                name='text'
-                type='text'
-                placeholder='Searching...'
-                onChange={(event) => handleSearch(event.target.value)}
-              /> */}
+              {
+                auth.user ?
+                  <Link to="/">
+                    <IconButton aria-label="Auth">
+                      <span className="d-none d-md-inline" onClick={() => handleLogOut()}>Logout</span>
+                      <i className="fa fa-user" aria-hidden="true" />
+                    </IconButton>
+                  </Link>
+                  :
+                  <Link to="/Auth">
+                    <IconButton aria-label="Auth">
+                      <span className="d-none d-md-inline">Login/ Signup</span>
+                      <i className="fa fa-user" aria-hidden="true" />
+                    </IconButton>
+                  </Link>
+              }
 
 
               {
@@ -126,21 +107,6 @@ function Header() {
 
 
               <div className="user_optio_box">
-
-                <Link to="/Auth">
-                  <IconButton aria-label="Auth">
-                    {/* <StyledBadge badgeContent={cartCount} color="secondary"> */}
-                    {/* <ShoppingCartIcon /> */}
-                    <i className="fa fa-user" aria-hidden="true" />
-                    {/* sx={{ color: theme.theme === 'light' ? 'gray' : 'white' }} style={{ width: "20px" }} */}
-                    {/* </StyledBadge> */}
-                  </IconButton>
-                </Link>
-
-                {/* <Link to={"/Cart"}>
-                  <i className="fa fa-shopping-cart" aria-hidden="true" />{cartCount}
-                </Link> */}
-
                 <Link to="/Cart">
                   <IconButton aria-label="cart">
                     <StyledBadge badgeContent={cartCount} color="secondary">

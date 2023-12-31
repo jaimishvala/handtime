@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { forgetRequest, loginRequest, signupRequest } from '../../redux/action/auth.action';
 
 function Auth(props) {
     const [type, setType] = useState("login")
@@ -51,12 +54,37 @@ function Auth(props) {
 
     let AuthSchema = yup.object().shape(authObj);
 
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleSignUp = (data) => {
+        dispatch(signupRequest(data))
+    }
+
+    const handleLogIn = (data) => {
+        dispatch(loginRequest({
+            data: data,
+            callback: (route) => {
+                navigate(route)
+            }
+        }))
+    }
+    const handleForget = (data) => {
+        dispatch(forgetRequest(data))
+    }
+
     const formikObj = useFormik({
 
         initialValues: iniVal,
 
         onSubmit: values => {
-            console.log(values)
+            if (type === 'login') {
+                handleLogIn(values)
+            } else if (type === 'signup') {
+                handleSignUp(values)
+            } else {
+                handleForget(values)
+            }
         },
 
         enableReinitialize: true,
