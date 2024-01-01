@@ -5,16 +5,19 @@ import Products from '../Admin/container/Products/Products';
 import SmartWatch from '../Admin/container/Watch/SmartWatch';
 import WatchCat from '../Admin/container/WatchList/WatchCat';
 import SubCategory from '../Admin/container/WatchList/SubCategory';
+import PrivateRoute from './PrivateRoute';
 
 function AdminRoute(props) {
     return (
         <>
             <Layout>
                 <Routes>
-                    <Route exact path='/Products' element={<Products />} />
-                    <Route exact path='/SmartWatch' element={<SmartWatch />} />
-                    <Route exact path='/WatchCat' element={<WatchCat />} />
-                    <Route exact path='/SubCategory' element={<SubCategory />}/>
+                    <Route exact element={<PrivateRoute />}>
+                        <Route exact path='/Products' element={<Products />} />
+                        <Route exact path='/SmartWatch' element={<SmartWatch />} />
+                        <Route exact path='/WatchCat' element={<WatchCat />} />
+                        <Route exact path='/SubCategory' element={<SubCategory />} />
+                    </Route>
                 </Routes>
             </Layout>
         </>
