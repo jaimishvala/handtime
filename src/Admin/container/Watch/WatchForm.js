@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 function WatchForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState([])
     const [subcategory, setSubCategory] = useState([])
 
     const dispatch = useDispatch()
@@ -30,6 +30,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
         if (updateData) {
             handleClickOpen()
             setValues(updateData)
+
         }
         dispatch(getWatchCat())
         dispatch(getWatchSubCat())
@@ -66,7 +67,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
             .matches(/^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/, "Please Enter https And WWW")
     })
 
-    const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues } = useFormik({
+    const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues, setFieldValue } = useFormik({
         validationSchema: Watchschema,
         initialValues: {
             category_name: '',
@@ -95,14 +96,15 @@ function WatchForm({ onHandleSubmit, updateData }) {
         setSubCategory(fData);
     }
 
+
     console.log(subcategory);
     console.log(category);
     console.log(values);
     return (
         <div>
-            <h2>Watch:</h2>
+            <h2>Products:</h2>
             <Button variant="outlined" onClick={handleClickOpen}>
-                ADD Watch
+                ADD Products
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Doctor</DialogTitle>
@@ -122,14 +124,15 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         value={values.category_name}
                     >
 
-                        <option value='0'>Select</option>
+                        <option value=''>Select</option>
                         {
-                            watchcat.watchcat.map((v) => {
-                                return (
-                                    <option value={v.id}>{v.category_name}</option>
-                                )
-                            })
+                            watchcat.watchcat.map((v) => (
+                                <option key={v.id} value={v.category_name}>
+                                    {v.category_name}
+                                </option>
+                            ))
                         }
+
 
                     </select>
                     {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
@@ -145,10 +148,10 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         value={values.sub_name}
                     >
 
-                        <option value='0'>Select</option>
+                        <option value=''>Select</option>
                         {
                             subcategory.map((v) => (
-                                <option key={v.id} value={v.id}>
+                                <option key={v.id} value={v.sub_name}>
                                     {v.sub_name}
                                 </option>
                             ))
@@ -219,7 +222,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
                     <Button onClick={handleSubmit}>{updateData ? "Update" : "Add"}</Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </div >
     );
 }
 

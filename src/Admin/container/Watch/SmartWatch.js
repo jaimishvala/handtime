@@ -10,7 +10,6 @@ import WatchForm from './WatchForm';
 import { addWatch, deleteWatch, getWatch, updateWatch } from '../../../redux/slice/watch.slice';
 
 export default function SmartWatch(props) {
-    const [mdata, setMdata] = useState([])
     const [update, setUpdate] = useState(false)
 
     const watch = useSelector(state => state.watch)
@@ -24,22 +23,13 @@ export default function SmartWatch(props) {
 
     const handleFormSubmit = (data) => {
         console.log(data);
-        let localData = JSON.parse(localStorage.getItem("watch"));
-
-
-        let id = Math.floor(Math.random() * 1000);
-
-        if (localData) {
-            if (update) {
-                dispatch(updateWatch(data))
-            } else {
-                dispatch(addWatch(data))
-            }
-
+        if (update) {
+            dispatch(updateWatch(data))
         } else {
-            localStorage.setItem("watch", JSON.stringify([{ id, ...data }]))
-            setMdata(localData)
+            dispatch(addWatch(data))
         }
+
+
         setUpdate(false)
     }
 
@@ -54,8 +44,8 @@ export default function SmartWatch(props) {
 
 
     const columns = [
-        { field: 'category_name', headerName: 'Category ID', width: 130 },
-        { field: 'sub_name', headerName: 'SubCategory ID', width: 130 },
+        { field: 'category_name', headerName: 'Category Name', width: 130 },
+        { field: 'sub_name', headerName: 'SubCategory Name', width: 130 },
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'desc', headerName: 'Description', width: 130 },
         { field: 'designation', headerName: 'Designation', width: 130 },

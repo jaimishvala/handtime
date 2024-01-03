@@ -88,7 +88,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                         {
                             watchcat.watchcat.map((v) => {
                                 return (
-                                    <option value={v.id}>{v.category_name}</option>
+                                    <option value={v.category_name}>{v.category_name}</option>
                                 )
                             })
                         }
