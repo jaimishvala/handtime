@@ -15,6 +15,9 @@ export default function SmartWatch(props) {
     const watch = useSelector(state => state.watch)
     console.log(watch);
 
+    const watchcat = useSelector(state => state.watchcat)
+    console.log(watchcat.watchcat);
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -43,7 +46,17 @@ export default function SmartWatch(props) {
 
 
     const columns = [
-        { field: 'category_name', headerName: 'Category Name', width: 130 },
+        {
+            field: 'category_name',
+            headerName: 'Category Name',
+            width: 130,
+            renderCell: (params) => {
+                console.log(params.row.id);
+
+                const categoryData = watchcat.watchcat.filter((v) => v.id === params.row.id)
+                console.log(categoryData);
+            }
+        },
         { field: 'sub_name', headerName: 'SubCategory Name', width: 130 },
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'price', headerName: 'Price', width: 130 },
@@ -69,7 +82,7 @@ export default function SmartWatch(props) {
                 if (!params.value) return "";
 
                 return params.value ? "qcwMxinpnAn5GKvwHbnl" : "Gold";
-            },                                         
+            },
         }
 
     ];
