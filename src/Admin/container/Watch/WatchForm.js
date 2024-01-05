@@ -54,17 +54,16 @@ function WatchForm({ onHandleSubmit, updateData }) {
         name: yup.string()
             .required("Please Enter Name")
             .matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Name"),
+        price: yup.string()
+            .required("Please Enter a Price")
+            .matches(
+                /^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/,
+                "Please Enter a Positive"
+            ),
         desc: yup.string()
             .required("Please Enter a Description")
             .matches(
                 /^(.|\s)*[a-zA-Z]+(.|\s)*$/, "Please Enter a Description"),
-
-        designation: yup.string()
-            .required("Please Enter a Designation")
-            .matches(/^[a-z ,.'-]+$/, "Please Enter Valid Designation"),
-        profile_url: yup.string()
-            .required("Please Enter a Profile URL")
-            .matches(/^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/, "Please Enter https And WWW")
     })
 
     const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues, setFieldValue } = useFormik({
@@ -73,9 +72,8 @@ function WatchForm({ onHandleSubmit, updateData }) {
             category_name: '',
             sub_name: '',
             name: '',
+            price: '',
             desc: '',
-            designation: '',
-            profile_url: '',
         },
         onSubmit: (values, action) => {
             onHandleSubmit(values)
@@ -124,15 +122,14 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         value={values.category_name}
                     >
 
-                        <option value=''>Select</option>
+                        <option value='0'>Select</option>
                         {
                             watchcat.watchcat.map((v) => (
-                                <option key={v.id} value={v.category_name}>
+                                <option key={v.id} value={v.id}>
                                     {v.category_name}
                                 </option>
                             ))
                         }
-
 
                     </select>
                     {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
@@ -148,7 +145,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         value={values.sub_name}
                     >
 
-                        <option value=''>Select</option>
+                        <option value='0'>Select</option>
                         {
                             subcategory.map((v) => (
                                 <option key={v.id} value={v.sub_name}>
@@ -176,6 +173,20 @@ function WatchForm({ onHandleSubmit, updateData }) {
 
                     <TextField
                         margin="dense"
+                        id="price"
+                        name='price'
+                        label="Enter price"
+                        type="number"
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.price}
+                    />
+                    {errors.price && touched.price ? <span>{errors.price}</span> : null}
+
+                    <TextField
+                        margin="dense"
                         id="desc"
                         name='desc'
                         label="Enter desc"
@@ -187,34 +198,6 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         value={values.desc}
                     />
                     {errors.desc && touched.desc ? <span>{errors.desc}</span> : null}
-
-                    <TextField
-                        margin="dense"
-                        id="designation"
-                        type="text"
-                        name='designation'
-                        label="Enter Designation"
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.designation}
-                    />
-                    {errors.designation && touched.designation ? <span>{errors.designation}</span> : null}
-
-                    <TextField
-                        margin="profile_url"
-                        id="profile_url"
-                        name='profile_url'
-                        label="Enter Fb Profile URL"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.profile_url}
-                    />
-                    {errors.profile_url && touched.profile_url ? <span>{errors.profile_url}</span> : null}
 
                 </DialogContent>
                 <DialogActions>

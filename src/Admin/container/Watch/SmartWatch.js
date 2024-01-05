@@ -29,7 +29,6 @@ export default function SmartWatch(props) {
             dispatch(addWatch(data))
         }
 
-
         setUpdate(false)
     }
 
@@ -47,9 +46,8 @@ export default function SmartWatch(props) {
         { field: 'category_name', headerName: 'Category Name', width: 130 },
         { field: 'sub_name', headerName: 'SubCategory Name', width: 130 },
         { field: 'name', headerName: 'Name', width: 130 },
+        { field: 'price', headerName: 'Price', width: 130 },
         { field: 'desc', headerName: 'Description', width: 130 },
-        { field: 'designation', headerName: 'Designation', width: 130 },
-        { field: 'profile_url', headerName: 'Profile URL', width: 130 },
         {
             field: "action",
             headerName: "Action",
@@ -66,7 +64,12 @@ export default function SmartWatch(props) {
                         </IconButton>
                     </>
                 )
-            }
+            },
+            valueFormatter: (params) => {
+                if (!params.value) return "";
+
+                return params.value ? "qcwMxinpnAn5GKvwHbnl" : "Gold";
+            },                                         
         }
 
     ];

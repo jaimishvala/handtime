@@ -88,13 +88,13 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                         {
                             watchcat.watchcat.map((v) => {
                                 return (
-                                    <option value={v.category_name}>{v.category_name}</option>
+                                    <option value={v.id}>{v.category_name}</option>
                                 )
                             })
                         }
                     </select>
                     <br></br>
-                    {errors.category_id && touched.category_id ? <span>{errors.category_id}</span> : null}
+                    {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
 
                     <TextField
                         margin="dense"

@@ -30,7 +30,7 @@ export const getWatch = createAsyncThunk(
 
         let data = [];
 
-        const querySnapshot = await getDocs(collection(db, "watch"));
+        const querySnapshot = await getDocs(collection(db, "product"));
         querySnapshot.forEach((doc) => {
             data.push({ ...doc.data(), id: doc.id })
             console.log(`${doc.id} => ${doc.data()}`);
@@ -52,7 +52,7 @@ export const addWatch = createAsyncThunk(
         console.log(data);
 
         try {
-            const docRef = await addDoc(collection(db, "watch"), data);
+            const docRef = await addDoc(collection(db, "product"), data);
             console.log("Document written with ID: ", docRef.id);
             return { ...data, id: docRef.id }
         } catch (e) {
@@ -68,7 +68,7 @@ export const addWatch = createAsyncThunk(
 export const deleteWatch = createAsyncThunk(
     'watch/delete',
     async (id) => {
-        await deleteDoc(doc(db, "watch", id));
+        await deleteDoc(doc(db, "product", id));
 
         // await deleteWatchData(id);
         return id;
@@ -80,7 +80,7 @@ export const updateWatch = createAsyncThunk(
     'watch/put',
     async (data) => {
 
-        const washingtonRef = doc(db, "watch", data.id);
+        const washingtonRef = doc(db, "product", data.id);
         let watchData = { ...data, id: data.id }
 
         delete watchData.id;
