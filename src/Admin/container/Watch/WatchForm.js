@@ -66,7 +66,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
                 /^(.|\s)*[a-zA-Z]+(.|\s)*$/, "Please Enter a Description"),
     })
 
-    const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues, setFieldValue } = useFormik({
+    const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues } = useFormik({
         validationSchema: Watchschema,
         initialValues: {
             category_name: '',
