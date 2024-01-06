@@ -3,7 +3,7 @@ import { authSaga } from "./auth.saga";
 
 
 export default function* rootSaga() {
-yield all([
-    authSaga()
-])
+    yield all([
+        authSaga()
+    ])
 }

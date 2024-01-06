@@ -6,7 +6,7 @@ import { setAlert } from '../slice/alert.slice';
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 function* signUpUser(action) {
-    console.log("jjjjj");
+    console.log("SignUp");
     try {
         const user = yield call(signUpAPI, action.payload)
         console.log(user);

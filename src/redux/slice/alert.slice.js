@@ -6,7 +6,7 @@ const initState = {
 }
 
 
-export const alertslice = createSlice({
+const alertslice = createSlice({
     name: 'alert',
     initialState: initState,
     reducers: {
