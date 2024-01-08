@@ -106,92 +106,94 @@ function WatchForm({ onHandleSubmit, updateData }) {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Product</DialogTitle>
                 <DialogContent>
-                        <lebel>Category Name:</lebel>
-                        <select
-                            name="category_name"
-                            id="category_name"
-                            className="form-select"
-                            onChange={(e) => { handleChange(e); handleSub(e.target.value) }}
-                            onBlur={handleBlur}
-                            value={values.category_name}
-                        >
+                    <lebel>Category Name:</lebel>
+                    <select
+                        name="category_name"
+                        id="category_name"
+                        className="form-select"
+                        onChange={(e) => { handleChange(e); handleSub(e.target.value) }}
+                        onBlur={handleBlur}
+                        value={values.category_name}
+                        style={{ width: "120px", height: "30px", borderRadius: "20px" }}
+                    >
 
-                            <option value='0'>Select</option>
-                            {
-                                watchcat.watchcat.map((v) => (
-                                    <option key={v.id} value={v.id}>
-                                        {v.category_name}
-                                    </option>
-                                ))
-                            }
+                        <option value='0'>Select</option>
+                        {
+                            watchcat.watchcat.map((v) => (
+                                <option key={v.id} value={v.id}>
+                                    {v.category_name}
+                                </option>
+                            ))
+                        }
 
-                        </select>
-                        {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
+                    </select>
+                    {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
 
-                        <br></br><br></br>
-                        <lebel>SubCategory Name:</lebel>
-                        <select
-                            name="sub_name"
-                            id="sub_name"
-                            className="form-select"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.sub_name}
-                        >
+                    <br></br><br></br>
+                    <lebel>SubCategory Name:</lebel>
+                    <select
+                        name="sub_name"
+                        id="sub_name"
+                        className="form-select"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.sub_name}
+                        style={{ width: "120px", height: "30px", borderRadius: "20px" }}
+                    >
 
-                            <option value='0'>Select</option>
-                            {
-                                subcategory.map((v) => (
-                                    <option key={v.id} value={v.sub_name}>
-                                        {v.sub_name}
-                                    </option>
-                                ))
-                            }
+                        <option value='0'>Select</option>
+                        {
+                            subcategory.map((v) => (
+                                <option key={v.id} value={v.sub_name}>
+                                    {v.sub_name}
+                                </option>
+                            ))
+                        }
 
-                        </select>
-                        {errors.sub_name && touched.sub_name ? <span>{errors.sub_name}</span> : null}
+                    </select>
+                    {errors.sub_name && touched.sub_name ? <span>{errors.sub_name}</span> : null}
 
-                        <TextField
-                            margin="dense"
-                            id="name"
-                            name='name'
-                            label="Enter Name"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.name}
-                        />
-                        {errors.name && touched.name ? <span>{errors.name}</span> : null}
+                    <TextField
+                        margin="dense"
+                        id="name"
+                        name='name'
+                        label="Enter Name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.name}
+                    />
+                    {errors.name && touched.name ? <span>{errors.name}</span> : null}
 
-                        <TextField
-                            margin="dense"
-                            id="price"
-                            name='price'
-                            label="Enter price"
-                            type="number"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.price}
-                        />
-                        {errors.price && touched.price ? <span>{errors.price}</span> : null}
+                    <TextField
+                        margin="dense"
+                        id="price"
+                        name='price'
+                        label="Enter price"
+                        type="number"
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.price}
+                    />
+                    {errors.price && touched.price ? <span>{errors.price}</span> : null}
 
-                        <TextField
-                            margin="dense"
-                            id="desc"
-                            name='desc'
-                            label="Enter desc"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.desc}
-                        />
-                        {errors.desc && touched.desc ? <span>{errors.desc}</span> : null}
+                    <TextField
+                        margin="dense"
+                        id="desc"
+                        name='desc'
+                        label="Enter desc"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.desc}
+                    />
+                    {errors.desc && touched.desc ? <span>{errors.desc}</span> : null}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

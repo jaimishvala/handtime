@@ -79,6 +79,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.category_name}
+                            style={{ width: "120px", height: "30px", borderRadius: "20px" }}
                         >
 
                             <option value='0'>Select</option>
