@@ -58,26 +58,24 @@ function WatchCatForm({ onHandleSubmit, updateData }) {
                 Open form dialog
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Subscribe</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
-                    </DialogContentText>
-                    <TextField
-                        margin="dense"
-                        id="category_name"
-                        name='category_name'
-                        label="Enter Category Name"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.category_name}
-                    />
+                <DialogTitle>Category</DialogTitle>
+                <DialogContent className="px-5 pb-4">
+                    <form className='row' style={{ width: '500px' }}>
+                        <TextField
+                            margin="dense"
+                            id="category_name"
+                            name='category_name'
+                            label="Enter Category Name"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.category_name}
+                        />
 
-                    {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
+                        {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
+                    </form>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

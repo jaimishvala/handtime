@@ -22,6 +22,7 @@ import { Link } from 'react-router-dom';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import WatchIcon from '@mui/icons-material/Watch';
 import CategoryIcon from '@mui/icons-material/Category';
+import ClassIcon from '@mui/icons-material/Class';
 
 
 const drawerWidth = 240;
@@ -106,9 +107,9 @@ function Layout({ children }) {
 
     const iconItem = [
         // { lebel: "Products", icon: <ProductionQuantityLimitsIcon />, to: "/Admin/Products/" },
-        { lebel: 'Products', icon: <ProductionQuantityLimitsIcon />, to: "/Admin/SmartWatch/" },
         { lebel: 'Category', icon: <CategoryIcon />, to: "/Admin/WatchCat" },
-        { lebel: 'SubCategory', to: '/Admin/SubCategory' }
+        { lebel: 'SubCategory',icon:<ClassIcon /> ,to: '/Admin/SubCategory' },
+        { lebel: 'Products', icon: <ProductionQuantityLimitsIcon />, to: "/Admin/SmartWatch/" }
     ]
 
     return (

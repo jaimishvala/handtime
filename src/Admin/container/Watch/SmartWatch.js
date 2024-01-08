@@ -51,11 +51,11 @@ export default function SmartWatch(props) {
             headerName: 'Category Name',
             width: 130,
             renderCell: (params) => {
-                console.log(params.row.id);
-                const fData = watchcat.watchcat.filter((v) => v.id !== params.row.id);
+                console.log(params.row.id, params);
+                const fData = watchcat.watchcat.filter((v) => v.id === params.row.category_name);
                 console.log(fData);
 
-                return fData.length > 0 ? fData[0].category_name : null
+                return fData.length > 0 ? fData[0].category_name : null;
             }
         },
         { field: 'sub_name', headerName: 'SubCategory Name', width: 130 },

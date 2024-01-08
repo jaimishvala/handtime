@@ -68,54 +68,56 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                 Open form dialog
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Subscribe</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
-                    </DialogContentText>
+                <DialogTitle>SubCategory</DialogTitle>
+                <DialogContent className="px-5 pb-4">
+                    <form className='row' style={{ width: '500px' }}>
 
-                    <select
-                        name="category_name"
-                        id="category_name"
-                        className="form-select"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.category_name}
-                    >
+                        <select
+                            name="category_name"
+                            id="category_name"
+                            className="form-select"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.category_name}
+                        >
 
-                        <option value='0'>Select</option>
-                        {
-                            watchcat.watchcat.map((v) => {
-                                return (
-                                    <option value={v.id}>{v.category_name}</option>
-                                )
-                            })
-                        }
-                    </select>
-                    <br></br>
-                    {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
+                            <option value='0'>Select</option>
+                            {
+                                watchcat.watchcat.map((v) => {
+                                    return (
+                                        <option value={v.id}>{v.category_name}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                        <br></br>
+                        {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
 
-                    <TextField
-                        margin="dense"
-                        id="sub_name"
-                        name='sub_name'
-                        label="Enter Sub Category Name"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.sub_name}
-                    />
-                    {errors.sub_name && touched.sub_name ? <span>{errors.sub_name}</span> : null}
+                        <TextField
+                            margin="dense"
+                            id="sub_name"
+                            name='sub_name'
+                            label="Enter Sub Category Name"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.sub_name}
+                        />
+                        {errors.sub_name && touched.sub_name ? <span>{errors.sub_name}</span> : null}
+                    </form>
+
                 </DialogContent>
+
+
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button onClick={handleSubmit}>{updateData ? 'update' : 'add'}</Button>
                 </DialogActions>
+
             </Dialog>
-        </div>
+        </div >
     );
 }
 

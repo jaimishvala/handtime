@@ -16,6 +16,9 @@ function SubCategory() {
     const watchsubcat = useSelector(state => state.watchsubcat)
     console.log(watchsubcat);
 
+    const watchcat = useSelector(state => state.watchcat)
+    console.log(watchcat.watchcat);
+
     useEffect(() => {
         dispatch(getWatchSubCat())
     }, [])
@@ -41,7 +44,18 @@ function SubCategory() {
     }
 
     const columns = [
-        { field: 'category_name', headerName: 'Category Name', width: 150 },
+        {
+            field: 'category_name',
+            headerName: 'Category Name',
+            width: 150,
+            renderCell: (params) => {
+                console.log(params);
+                const fData = watchcat.watchcat.filter((v) => v.id === params.row.category_name);
+                console.log(fData);
+
+                return fData.length > 0 ? fData[0].category_name : null;
+            }
+        },
         { field: 'sub_name', headerName: 'SubCategory Name', width: 150 },
         {
             field: "action",

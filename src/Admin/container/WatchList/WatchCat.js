@@ -66,7 +66,7 @@ function WatchCat(props) {
 
     return (
         <div>
-            <h2>Watch Category</h2>
+            <h2>Category</h2>
             <WatchCatForm onHandleSubmit={handleSubmitForm} updateData={update} />
 
             <div sx={{ height: 400, width: '100%' }}>
