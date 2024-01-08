@@ -49,7 +49,7 @@ export default function SmartWatch(props) {
         {
             field: 'category_name',
             headerName: 'Category Name',
-            width: 130,
+            width: 200,
             renderCell: (params) => {
                 console.log(params.row.id, params);
                 const fData = watchcat.watchcat.filter((v) => v.id === params.row.category_name);
@@ -58,10 +58,10 @@ export default function SmartWatch(props) {
                 return fData.length > 0 ? fData[0].category_name : null;
             }
         },
-        { field: 'sub_name', headerName: 'SubCategory Name', width: 130 },
-        { field: 'name', headerName: 'Name', width: 130 },
-        { field: 'price', headerName: 'Price', width: 130 },
-        { field: 'desc', headerName: 'Description', width: 130 },
+        { field: 'sub_name', headerName: 'SubCategory Name', width: 200 },
+        { field: 'name', headerName: 'Name', width: 200 },
+        { field: 'price', headerName: 'Price', width: 200 },
+        { field: 'desc', headerName: 'Description', width: 200 },
         {
             field: "action",
             headerName: "Action",

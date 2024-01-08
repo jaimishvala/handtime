@@ -25,18 +25,17 @@ function Product(props) {
         <div className='container'>
             <br></br><br></br><br></br>
             <div className='row'>
-            {
-                watch.watch.map((v) => {
-                    return (
-                        <div className='watch col-lg-3'>
-                            <h4>{v.name}</h4>
-                            <h4>{v.category_name}</h4>
-                            <h4>{v.sub_name}</h4>
-                            <p>${v.price}</p>
-                        </div>
-                    )
-                })
-            }
+                {
+                    watch.watch.map((v) => {
+                        return (
+                            <div className='watch col-lg-3'>
+                                <h4>{v.name}</h4>
+                                <h4>{v.sub_name}</h4>
+                                <p>${v.price}</p>
+                            </div>
+                        )
+                    })
+                }
             </div>
             <br></br><br></br>
         </div>

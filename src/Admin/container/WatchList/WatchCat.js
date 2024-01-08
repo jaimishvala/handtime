@@ -40,7 +40,7 @@ function WatchCat(props) {
     }
 
     const columns = [
-        { field: 'category_name', headerName: 'Category Name', width: 130 },
+        { field: 'category_name', headerName: 'Category Name', width: 200 },
         {
             field: "action",
             headerName: "Action",
@@ -66,7 +66,7 @@ function WatchCat(props) {
 
     return (
         <div>
-            <h2>Category</h2>
+            <h2>Category:</h2>
             <WatchCatForm onHandleSubmit={handleSubmitForm} updateData={update} />
 
             <div sx={{ height: 400, width: '100%' }}>

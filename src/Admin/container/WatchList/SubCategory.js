@@ -47,7 +47,7 @@ function SubCategory() {
         {
             field: 'category_name',
             headerName: 'Category Name',
-            width: 150,
+            width: 200,
             renderCell: (params) => {
                 console.log(params);
                 const fData = watchcat.watchcat.filter((v) => v.id === params.row.category_name);
@@ -56,7 +56,7 @@ function SubCategory() {
                 return fData.length > 0 ? fData[0].category_name : null;
             }
         },
-        { field: 'sub_name', headerName: 'SubCategory Name', width: 150 },
+        { field: 'sub_name', headerName: 'SubCategory Name', width: 200 },
         {
             field: "action",
             headerName: "Action",
@@ -80,7 +80,7 @@ function SubCategory() {
 
     return (
         <div>
-            <h2>Sub Category</h2>
+            <h2>Sub Category:</h2>
             <SubCategoryForm onHandleSubmit={handleSubmitForm} updateData={update} />
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid

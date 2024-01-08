@@ -55,10 +55,10 @@ function WatchCatForm({ onHandleSubmit, updateData }) {
     return (
         <>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Open form dialog
+                Add Category
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Category</DialogTitle>
+                <DialogTitle>Category:</DialogTitle>
                 <DialogContent className="px-5 pb-4">
                     <form className='row' style={{ width: '500px' }}>
                         <TextField

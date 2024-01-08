@@ -1,17 +1,17 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getWatch } from '../../redux/slice/watch.slice';
+import { getWatchCat } from '../../redux/slice/watchcat.slice';
 
 function Testimonial(props) {
 
-    const watch = useSelector(state => state.watch)
-    console.log(watch);
+    const watchcat = useSelector(state => state.watchcat)
+    console.log(watchcat);
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getWatch())
+        dispatch(getWatchCat())
     }, [])
 
     return (
@@ -26,13 +26,11 @@ function Testimonial(props) {
                     <br></br><br></br><br></br>
                     <div className='row'>
                         {
-                            watch.watch.map((v) => {
+                            watchcat.watchcat.map((v) => {
 
                                 return (
                                     <div className='watch col-lg-3'>
-                                        <h4>{v.name}</h4>
-                                        <h5>{v.profile_url}</h5>
-                                        <span>{v.designation}</span>
+                                        <h4>{v.category_name}</h4>
                                     </div>
                                 )
                             })

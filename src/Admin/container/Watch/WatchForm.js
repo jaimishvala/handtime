@@ -104,7 +104,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
                 ADD Product
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Product</DialogTitle>
+                <DialogTitle>Product:</DialogTitle>
                 <DialogContent>
                     <lebel>Category Name:</lebel>
                     <select

@@ -65,13 +65,13 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Open form dialog
+                Add SubCategory
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>SubCategory</DialogTitle>
+                <DialogTitle>SubCategory:</DialogTitle>
                 <DialogContent className="px-5 pb-4">
                     <form className='row' style={{ width: '500px' }}>
-
+                        <lebel>Category Name:</lebel>
                         <select
                             name="category_name"
                             id="category_name"
