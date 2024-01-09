@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { addWatchData, deleteWatchData, getWatchData, updateWatchData } from "../../common/api/watch.api"
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db, storage } from "../../firebase";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 
 
@@ -27,7 +27,6 @@ const onError = (state, action) => {
 export const getWatch = createAsyncThunk(
     'watch/get',
     async () => {
-        await new Promise((resolve, reject) => setTimeout(resolve, 2000))
 
         let data = [];
 
@@ -52,13 +51,12 @@ export const addWatch = createAsyncThunk(
     async (data) => {
         console.log(data);
 
-        let aptData = { ...data }
-        console.log(aptData);
+        let proData = { ...data }
+        console.log(proData);
 
         let rNo = Math.floor(Math.random() * 10000)
 
-        const storageRef = ref(storage, 'watch/' + rNo + '_' + data.file.name);
-
+        const storageRef = ref(storage, 'product/' + rNo + '_' + data.file.name);
 
         // 'file' comes from the Blob or File API
         await uploadBytes(storageRef, data.file).then(async (snapshot) => {
@@ -66,15 +64,15 @@ export const addWatch = createAsyncThunk(
             await getDownloadURL(snapshot.ref)
                 .then(async (url) => {
                     console.log(url);
-                    let aptDoc = await addDoc(collection(db, "watch"), { ...data, file: url, file_name: rNo + '_' + data.file.name })
-                    console.log(aptDoc);
-                    aptData = { id: aptDoc.id, ...data, file: url, file_name: rNo + '_' + data.file.name }
+                    let proDoc = await addDoc(collection(db, "product"), { ...data, file: url, file_name: rNo + '_' + data.file.name })
+                    console.log(proDoc);
+                    proData = { id: proDoc.id, ...data, file: url, file_name: rNo + '_' + data.file.name }
                 })
         })
             .catch((error) => console.log(error));
 
-        console.log(aptData);
-        return aptData;
+        console.log(proData);
+        return proData;
 
         // try {
         //     const docRef = await addDoc(collection(db, "product"), data);
@@ -92,11 +90,20 @@ export const addWatch = createAsyncThunk(
 
 export const deleteWatch = createAsyncThunk(
     'watch/delete',
-    async (id) => {
-        await deleteDoc(doc(db, "product", id));
+    async (data) => {
+        const proRef = ref(storage, 'product/' + data.file_name);
+        console.log(proRef);
+
+       await deleteObject(proRef).then(async () => {
+            await deleteDoc(doc(db, "product/", data.id));
+            console.log("Delete Image Successfully.");
+        }).catch((error) => {
+            console.log("Image Not Delete Successfully.");
+            console.log(error);
+        });
 
         // await deleteWatchData(id);
-        return id;
+        return data.id;
     }
 )
 
@@ -104,16 +111,54 @@ export const deleteWatch = createAsyncThunk(
 export const updateWatch = createAsyncThunk(
     'watch/put',
     async (data) => {
+        console.log(data);
+        
+        let proData = { ...data }
+        console.log(proData);
 
-        const washingtonRef = doc(db, "product", data.id);
-        let watchData = { ...data, id: data.id }
+        if (typeof data.file === "string") {
+            const proRef = doc(db, "product", data.id);
+            await updateDoc(proRef, { ...data, id: data.id });
+        } else {
 
-        delete watchData.id;
-        // Set the "capital" field of the city 'DC'
-        await updateDoc(washingtonRef, watchData)
+            const proRef = ref(storage, 'product/' + data.file_name);
+            console.log(proRef);
 
-        // await updateWatchData(data);
-        return data;
+            await deleteObject(proRef).then(async () => {
+                let rNo = Math.floor(Math.random() * 10000)
+
+                const storageRef = ref(storage, 'product/' + rNo + '_' + data.file.name);
+                console.log(storageRef);
+
+                // 'file' comes from the Blob or File API
+                await uploadBytes(storageRef, data.file).then(async (snapshot) => {
+                    console.log('Uploaded a blob or file!');
+                    await getDownloadURL(snapshot.ref)
+                        .then(async (url) => {
+                            console.log(url);
+
+                            const washingtonRef = doc(db, "product", data.id);
+
+                            let newdata = { ...data, file: url, file_name: rNo + '_' + data.file.name }
+
+                            delete newdata.id;
+
+                            await updateDoc(washingtonRef, newdata);
+
+                            proData = { ...data, file: url, file_name: rNo + '_' + data.file.name }
+
+                        })
+
+                })
+                    .catch((error) => console.log(error));
+            }).catch((error) => {
+                console.log(error);
+            });
+
+        }
+
+        console.log(proData);
+        return proData;
     }
 )
 
@@ -138,14 +183,20 @@ export const watchSlice = createSlice({
         builder.addCase(getWatch.rejected, onError);
 
         builder.addCase(addWatch.fulfilled, (state, action) => {
+            state.isLoading = false;
             state.watch = state.watch.concat(action.payload)
+            state.error = null;
         });
 
         builder.addCase(deleteWatch.fulfilled, (state, action) => {
+            state.isLoading = false;
             state.watch = state.watch.filter((v) => v.id !== action.payload)
+            state.error = null;
         });
 
         builder.addCase(updateWatch.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.error = null;
             state.watch = state.watch.map((v) => {
                 if (v.id === action.payload.id) {
                     return action.payload;

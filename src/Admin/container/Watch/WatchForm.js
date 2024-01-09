@@ -69,7 +69,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
                 /^(.|\s)*[a-zA-Z]+(.|\s)*$/, "Please Enter a Description"),
     })
 
-    const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues } = useFormik({
+    const { handleSubmit, handleChange, handleBlur, values, errors, touched, setFieldValue, setValues } = useFormik({
         validationSchema: Watchschema,
         initialValues: {
             category_name: '',
@@ -173,18 +173,18 @@ function WatchForm({ onHandleSubmit, updateData }) {
                     {errors.name && touched.name ? <span>{errors.name}</span> : null}
 
                     <TextField
-                        margin="dense"
-                        id="file"
                         name='file'
-                        label="Enter file"
                         type="file"
                         fullWidth
                         variant="standard"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.file}
+                        onChange={(event) => setFieldValue("file", event.target.files[0])}
                     />
-                    {errors.file && touched.file ? <span>{errors.file}</span> : null}
+                    {/* {errors.file && touched.file ? <span>{errors.file}</span> : null} */}
+                    <img
+                        src={typeof values.file === "string" ? values.file : URL.createObjectURL(values.file)}
+                        width={"50px"}
+                        height={"50px"}
+                    />
                     <TextField
                         margin="dense"
                         id="price"
