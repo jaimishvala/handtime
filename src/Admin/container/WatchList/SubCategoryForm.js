@@ -11,6 +11,8 @@ import * as yup from 'yup';
 import { useEffect } from 'react';
 import { getWatchCat } from '../../../redux/slice/watchcat.slice';
 import { useDispatch, useSelector } from 'react-redux';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 function SubCategoryForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
@@ -72,25 +74,25 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                 <DialogContent className="px-5 pb-4">
                     <form className='row' style={{ width: '500px' }}>
                         <lebel>Category Name:</lebel>
-                        <select
+                        <Select
                             name="category_name"
                             id="category_name"
                             className="form-select"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.category_name}
-                            style={{ width: "120px", height: "30px", borderRadius: "20px" }}
+                            style={{ width: "120px", height: "30px" }}
                         >
 
-                            <option value='0'>Select</option>
+                            <MenuItem value='0'>Select</MenuItem>
                             {
                                 watchcat.watchcat.map((v) => {
                                     return (
-                                        <option value={v.id}>{v.category_name}</option>
+                                        <MenuItem value={v.id}>{v.category_name}</MenuItem>
                                     )
                                 })
                             }
-                        </select>
+                        </Select>
                         <br></br>
                         {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
 

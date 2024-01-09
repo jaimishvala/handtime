@@ -68,7 +68,7 @@ function WatchCat(props) {
         <div>
             <h2>Category:</h2>
             <WatchCatForm onHandleSubmit={handleSubmitForm} updateData={update} />
-
+            <br></br><br></br>
             <div sx={{ height: 400, width: '100%' }}>
                 <DataGrid
                     rows={watchcat.watchcat}

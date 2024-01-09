@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { addWatchData, deleteWatchData, getWatchData, updateWatchData } from "../../common/api/watch.api"
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 
 
@@ -51,13 +52,37 @@ export const addWatch = createAsyncThunk(
     async (data) => {
         console.log(data);
 
-        try {
-            const docRef = await addDoc(collection(db, "product"), data);
-            console.log("Document written with ID: ", docRef.id);
-            return { ...data, id: docRef.id }
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
+        let aptData = { ...data }
+        console.log(aptData);
+
+        let rNo = Math.floor(Math.random() * 10000)
+
+        const storageRef = ref(storage, 'watch/' + rNo + '_' + data.file.name);
+
+
+        // 'file' comes from the Blob or File API
+        await uploadBytes(storageRef, data.file).then(async (snapshot) => {
+            console.log('Uploaded a blob or file!');
+            await getDownloadURL(snapshot.ref)
+                .then(async (url) => {
+                    console.log(url);
+                    let aptDoc = await addDoc(collection(db, "watch"), { ...data, file: url, file_name: rNo + '_' + data.file.name })
+                    console.log(aptDoc);
+                    aptData = { id: aptDoc.id, ...data, file: url, file_name: rNo + '_' + data.file.name }
+                })
+        })
+            .catch((error) => console.log(error));
+
+        console.log(aptData);
+        return aptData;
+
+        // try {
+        //     const docRef = await addDoc(collection(db, "product"), data);
+        //     console.log("Document written with ID: ", docRef.id);
+        //     return { ...data, id: docRef.id }
+        // } catch (e) {
+        //     console.error("Error adding document: ", e);
+        // }
 
         // await addWatchData(data);
         // return data;

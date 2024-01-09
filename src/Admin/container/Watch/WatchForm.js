@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getWatchCat } from '../../../redux/slice/watchcat.slice';
 import { getWatchSubCat } from '../../../redux/slice/watchsub.slice';
 import { useState } from 'react';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 function WatchForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
@@ -53,6 +55,8 @@ function WatchForm({ onHandleSubmit, updateData }) {
         name: yup.string()
             .required("Please Enter Name")
             .matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Name"),
+        file: yup.mixed()
+            .required("Please Enter File"),
         price: yup.string()
             .required("Please Enter a Price")
             .matches(
@@ -71,6 +75,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
             category_name: '',
             sub_name: '',
             name: '',
+            file: '',
             price: '',
             desc: '',
         },
@@ -107,50 +112,50 @@ function WatchForm({ onHandleSubmit, updateData }) {
                 <DialogTitle>Product:</DialogTitle>
                 <DialogContent>
                     <lebel>Category Name:</lebel>
-                    <select
+                    <Select
                         name="category_name"
                         id="category_name"
                         className="form-select"
                         onChange={(e) => { handleChange(e); handleSub(e.target.value) }}
                         onBlur={handleBlur}
                         value={values.category_name}
-                        style={{ width: "120px", height: "30px", borderRadius: "20px" }}
+                        style={{ width: "120px", height: "30px" }}
                     >
 
-                        <option value='0'>Select</option>
+                        <MenuItem value='0'>Select</MenuItem>
                         {
                             watchcat.watchcat.map((v) => (
-                                <option key={v.id} value={v.id}>
+                                <MenuItem key={v.id} value={v.id}>
                                     {v.category_name}
-                                </option>
+                                </MenuItem>
                             ))
                         }
 
-                    </select>
+                    </Select>
                     {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
 
                     <br></br><br></br>
                     <lebel>SubCategory Name:</lebel>
-                    <select
+                    <Select
                         name="sub_name"
                         id="sub_name"
                         className="form-select"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.sub_name}
-                        style={{ width: "120px", height: "30px", borderRadius: "20px" }}
+                        style={{ width: "120px", height: "30px" }}
                     >
 
-                        <option value='0'>Select</option>
+                        <MenuItem value='0'>Select</MenuItem>
                         {
                             subcategory.map((v) => (
-                                <option key={v.id} value={v.sub_name}>
+                                <MenuItem key={v.id} value={v.sub_name}>
                                     {v.sub_name}
-                                </option>
+                                </MenuItem>
                             ))
                         }
 
-                    </select>
+                    </Select>
                     {errors.sub_name && touched.sub_name ? <span>{errors.sub_name}</span> : null}
 
                     <TextField
@@ -167,6 +172,19 @@ function WatchForm({ onHandleSubmit, updateData }) {
                     />
                     {errors.name && touched.name ? <span>{errors.name}</span> : null}
 
+                    <TextField
+                        margin="dense"
+                        id="file"
+                        name='file'
+                        label="Enter file"
+                        type="file"
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.file}
+                    />
+                    {errors.file && touched.file ? <span>{errors.file}</span> : null}
                     <TextField
                         margin="dense"
                         id="price"

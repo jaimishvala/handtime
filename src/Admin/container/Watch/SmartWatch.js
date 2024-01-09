@@ -23,7 +23,7 @@ export default function SmartWatch(props) {
     useEffect(() => {
         dispatch(getWatch())
     }, [])
-
+    
     const handleFormSubmit = (data) => {
         console.log(data);
         if (update) {
@@ -60,6 +60,7 @@ export default function SmartWatch(props) {
         },
         { field: 'sub_name', headerName: 'SubCategory Name', width: 200 },
         { field: 'name', headerName: 'Name', width: 200 },
+        { field: 'file', headerName: 'File', width: 200 },
         { field: 'price', headerName: 'Price', width: 200 },
         { field: 'desc', headerName: 'Description', width: 200 },
         {
@@ -86,6 +87,7 @@ export default function SmartWatch(props) {
     return (
         <div>
             <WatchForm onHandleSubmit={handleFormSubmit} updateData={update} />
+            <br></br>
             <div style={{ height: 400, width: '100%' }}>
 
                 <DataGrid

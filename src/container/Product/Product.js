@@ -5,8 +5,10 @@ import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWatch } from '../../redux/slice/watch.slice';
 
-
 function Product(props) {
+    const [isLoading, setIsLoading] = useState(true);
+    const [search, setSearch] = useState('')
+    const [filterData, setFilterData] = useState([])
 
     const watch = useSelector(state => state.watch)
     console.log(watch.watch);
@@ -15,6 +17,9 @@ function Product(props) {
 
 
     useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 2000)
         dispatch(getWatch())
     }, []);
 
@@ -26,15 +31,21 @@ function Product(props) {
             <br></br><br></br><br></br>
             <div className='row'>
                 {
-                    watch.watch.map((v) => {
-                        return (
-                            <div className='watch col-lg-3'>
-                                <h4>{v.name}</h4>
-                                <h4>{v.sub_name}</h4>
-                                <p>${v.price}</p>
-                            </div>
-                        )
-                    })
+                    isLoading ?
+                        <Box className="loading" sx={{ display: 'flex' }}>
+                            <CircularProgress />
+                        </Box>
+                        :
+                        watch.watch.map((v) => {
+                            return (
+                                <div className='watch col-lg-3'>
+                                    <h4>{v.name}</h4>
+                                    <h4>{v.sub_name}</h4>
+                                    <p>${v.price}</p>
+                                    <button>Add To Cart</button>
+                                </div>
+                            )
+                        })
                 }
             </div>
             <br></br><br></br>

@@ -82,6 +82,7 @@ function SubCategory() {
         <div>
             <h2>Sub Category:</h2>
             <SubCategoryForm onHandleSubmit={handleSubmitForm} updateData={update} />
+            <br></br>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
                     rows={watchsubcat.watchsubcat}
