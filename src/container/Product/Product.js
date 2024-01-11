@@ -4,6 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWatch } from '../../redux/slice/watch.slice';
+import { getWatchCat } from '../../redux/slice/watchcat.slice';
 
 function Product(props) {
     const [isLoading, setIsLoading] = useState(true);
@@ -12,6 +13,8 @@ function Product(props) {
 
     const watch = useSelector(state => state.watch)
     console.log(watch.watch);
+
+    const watchcat = useSelector(state => state.watchcat)
     const dispatch = useDispatch()
 
 
@@ -21,6 +24,7 @@ function Product(props) {
             setIsLoading(false)
         }, 2000)
         dispatch(getWatch())
+        dispatch(getWatchCat())
     }, []);
 
     // console.log(search);
@@ -36,10 +40,10 @@ function Product(props) {
                             <CircularProgress />
                         </Box>
                         :
-                        watch.watch.map((v) => {
+                        watchcat.watchcat.map((v) => {
                             return (
                                 <div className='watch col-lg-3'>
-                                    <h4>{v.name}</h4>
+                                    <h4>{v.category_name}</h4>
                                     <h4>{v.sub_name}</h4>
                                     <p>${v.price}</p>
                                     <button>Add To Cart</button>

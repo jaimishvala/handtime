@@ -41,7 +41,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
     };
 
     const SubCategorySchema = yup.object().shape({
-        category_name: yup.string()
+        category_id: yup.string()
             .required("Please Select Any One Option"),
         sub_name: yup.string()
             .required("Please Enter SubCategory Name")
@@ -51,7 +51,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
     const { handleSubmit, handleBlur, handleChange, values, touched, errors, setValues } = useFormik({
         validationSchema: SubCategorySchema,
         initialValues: {
-            category_name: '',
+            category_id: '',
             sub_name: '',
         },
         onSubmit: (values, action) => {
@@ -75,12 +75,12 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                     <form className='row' style={{ width: '500px' }}>
                         <lebel>Category Name:</lebel>
                         <Select
-                            name="category_name"
-                            id="category_name"
+                            name="category_id"
+                            id="category_id"
                             className="form-select"
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            value={values.category_name}
+                            value={values.category_id}
                             style={{ width: "120px", height: "30px" }}
                         >
 
@@ -94,7 +94,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                             }
                         </Select>
                         <br></br>
-                        {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
+                        {errors.category_id && touched.category_id ? <span>{errors.category_id}</span> : null}
 
                         <TextField
                             margin="dense"

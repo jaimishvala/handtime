@@ -17,13 +17,14 @@ export default function SmartWatch(props) {
 
     const watchcat = useSelector(state => state.watchcat)
     console.log(watchcat.watchcat);
+    const watchsubcat = useSelector(state => state.watchsubcat)
 
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getWatch())
     }, [])
-    
+
     const handleFormSubmit = (data) => {
         console.log(data);
         if (update) {
@@ -47,18 +48,29 @@ export default function SmartWatch(props) {
 
     const columns = [
         {
-            field: 'category_name',
+            field: 'category_id',
             headerName: 'Category Name',
             width: 200,
             renderCell: (params) => {
                 console.log(params.row.id, params);
-                const fData = watchcat.watchcat.filter((v) => v.id === params.row.category_name);
+                const fData = watchcat.watchcat.filter((v) => v.id === params.row.category_id);
                 console.log(fData);
 
                 return fData.length > 0 ? fData[0].category_name : null;
             }
         },
-        { field: 'sub_name', headerName: 'SubCategory Name', width: 200 },
+        {
+            field: 'sub_id',
+            headerName: 'SubCategory Name',
+            width: 200,
+            renderCell: (params) => {
+                console.log(params.row.id, params);
+                const fData = watchsubcat.watchsubcat.filter((v) => v.id === params.row.sub_id);
+                console.log(fData);
+
+                return fData.length > 0 ? fData[0].sub_name : null;
+            }
+        },
         { field: 'name', headerName: 'Name', width: 200 },
         { field: 'file', headerName: 'File', width: 200 },
         { field: 'price', headerName: 'Price', width: 200 },

@@ -45,12 +45,12 @@ function SubCategory() {
 
     const columns = [
         {
-            field: 'category_name',
+            field: 'category_id',
             headerName: 'Category Name',
             width: 200,
             renderCell: (params) => {
                 console.log(params);
-                const fData = watchcat.watchcat.filter((v) => v.id === params.row.category_name);
+                const fData = watchcat.watchcat.filter((v) => v.id === params.row.category_id);
                 console.log(fData);
 
                 return fData.length > 0 ? fData[0].category_name : null;

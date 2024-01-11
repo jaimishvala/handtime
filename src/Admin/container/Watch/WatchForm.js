@@ -48,9 +48,9 @@ function WatchForm({ onHandleSubmit, updateData }) {
 
 
     let Watchschema = yup.object().shape({
-        category_name: yup.string()
+        category_id: yup.string()
             .required("Please Enter Category Name"),
-        sub_name: yup.string()
+        sub_id: yup.string()
             .required("Please Enter SubCategory Name"),
         name: yup.string()
             .required("Please Enter Name")
@@ -72,8 +72,8 @@ function WatchForm({ onHandleSubmit, updateData }) {
     const { handleSubmit, handleChange, handleBlur, values, errors, touched, setFieldValue, setValues } = useFormik({
         validationSchema: Watchschema,
         initialValues: {
-            category_name: '',
-            sub_name: '',
+            category_id: '',
+            sub_id: '',
             name: '',
             file: '',
             price: '',
@@ -91,7 +91,7 @@ function WatchForm({ onHandleSubmit, updateData }) {
         console.log(value);
         setCategory(value)
 
-        const fData = watchsubcat.watchsubcat.filter((v) => v.category_name === value);
+        const fData = watchsubcat.watchsubcat.filter((v) => v.category_id === value);
 
         console.log(fData);
 
@@ -113,12 +113,12 @@ function WatchForm({ onHandleSubmit, updateData }) {
                 <DialogContent>
                     <lebel>Category Name:</lebel>
                     <Select
-                        name="category_name"
-                        id="category_name"
+                        name="category_id"
+                        id="category_id"
                         className="form-select"
                         onChange={(e) => { handleChange(e); handleSub(e.target.value) }}
                         onBlur={handleBlur}
-                        value={values.category_name}
+                        value={values.category_id}
                         style={{ width: "120px", height: "30px" }}
                     >
 
@@ -132,13 +132,13 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         }
 
                     </Select>
-                    {errors.category_name && touched.category_name ? <span>{errors.category_name}</span> : null}
+                    {errors.category_id && touched.category_id ? <span>{errors.category_id}</span> : null}
 
                     <br></br><br></br>
                     <lebel>SubCategory Name:</lebel>
                     <Select
-                        name="sub_name"
-                        id="sub_name"
+                        name="sub_id"
+                        id="sub_id"
                         className="form-select"
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -149,14 +149,14 @@ function WatchForm({ onHandleSubmit, updateData }) {
                         <MenuItem value='0'>Select</MenuItem>
                         {
                             subcategory.map((v) => (
-                                <MenuItem key={v.id} value={v.sub_name}>
+                                <MenuItem key={v.id} value={v.id}>
                                     {v.sub_name}
                                 </MenuItem>
                             ))
                         }
 
                     </Select>
-                    {errors.sub_name && touched.sub_name ? <span>{errors.sub_name}</span> : null}
+                    {errors.sub_id && touched.sub_id ? <span>{errors.sub_id}</span> : null}
 
                     <TextField
                         margin="dense"
