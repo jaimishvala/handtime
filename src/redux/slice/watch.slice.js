@@ -39,9 +39,6 @@ export const getWatch = createAsyncThunk(
 
         return data;
 
-        // let respones = await getWatchData();
-        // console.log(respones.data);
-        // return respones.data;
     }
 )
 
@@ -58,7 +55,6 @@ export const addWatch = createAsyncThunk(
 
         const storageRef = ref(storage, 'product/' + rNo + '_' + data.file.name);
 
-        // 'file' comes from the Blob or File API
         await uploadBytes(storageRef, data.file).then(async (snapshot) => {
             console.log('Uploaded a blob or file!');
             await getDownloadURL(snapshot.ref)
@@ -73,17 +69,6 @@ export const addWatch = createAsyncThunk(
 
         console.log(proData);
         return proData;
-
-        // try {
-        //     const docRef = await addDoc(collection(db, "product"), data);
-        //     console.log("Document written with ID: ", docRef.id);
-        //     return { ...data, id: docRef.id }
-        // } catch (e) {
-        //     console.error("Error adding document: ", e);
-        // }
-
-        // await addWatchData(data);
-        // return data;
     }
 )
 
@@ -94,15 +79,14 @@ export const deleteWatch = createAsyncThunk(
         const proRef = ref(storage, 'product/' + data.file_name);
         console.log(proRef);
 
-       await deleteObject(proRef).then(async () => {
-            await deleteDoc(doc(db, "product/", data.id));
+        await deleteObject(proRef).then(async () => {
+            await deleteDoc(doc(db, "product", data.id));
             console.log("Delete Image Successfully.");
         }).catch((error) => {
             console.log("Image Not Delete Successfully.");
             console.log(error);
         });
 
-        // await deleteWatchData(id);
         return data.id;
     }
 )
@@ -112,7 +96,7 @@ export const updateWatch = createAsyncThunk(
     'watch/put',
     async (data) => {
         console.log(data);
-        
+
         let proData = { ...data }
         console.log(proData);
 
@@ -130,7 +114,6 @@ export const updateWatch = createAsyncThunk(
                 const storageRef = ref(storage, 'product/' + rNo + '_' + data.file.name);
                 console.log(storageRef);
 
-                // 'file' comes from the Blob or File API
                 await uploadBytes(storageRef, data.file).then(async (snapshot) => {
                     console.log('Uploaded a blob or file!');
                     await getDownloadURL(snapshot.ref)

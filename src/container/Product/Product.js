@@ -40,11 +40,11 @@ function Product(props) {
                             <CircularProgress />
                         </Box>
                         :
-                        watchcat.watchcat.map((v) => {
+                        watch.watch.map((v) => {
                             return (
-                                <div className='watch col-lg-3'>
-                                    <h4>{v.category_name}</h4>
-                                    <h4>{v.sub_name}</h4>
+                                <div className='watch col-lg-4'>
+                                    <h4>{v.name}</h4>
+                                    <img src={v.file} width="250px" height="300px" />
                                     <p>${v.price}</p>
                                     <button>Add To Cart</button>
                                 </div>
