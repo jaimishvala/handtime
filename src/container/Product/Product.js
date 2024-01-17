@@ -42,9 +42,9 @@ function Product(props) {
                         :
                         watch.watch.map((v) => {
                             return (
-                                <div className='watch col-lg-4'>
+                                <div className='watch col-lg-3'>
                                     <h4>{v.name}</h4>
-                                    <img src={v.file} width="250px" height="300px" />
+                                    <img src={v.file} width="200px" height="200px" />
                                     <p>${v.price}</p>
                                     <button>Add To Cart</button>
                                 </div>
