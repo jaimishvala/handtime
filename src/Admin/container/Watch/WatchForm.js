@@ -13,7 +13,7 @@ import { getWatchCat } from '../../../redux/slice/watchcat.slice';
 import { getWatchSubCat } from '../../../redux/slice/watchsub.slice';
 import { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 
 function WatchForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);

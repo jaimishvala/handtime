@@ -80,7 +80,7 @@ export const deleteWatch = createAsyncThunk(
         console.log(proRef);
 
         await deleteObject(proRef).then(async () => {
-            await deleteDoc(doc(db, "product", data.id));
+            await deleteDoc(doc(db, "product/", data.id));
             console.log("Delete Image Successfully.");
         }).catch((error) => {
             console.log("Image Not Delete Successfully.");
@@ -118,7 +118,7 @@ export const updateWatch = createAsyncThunk(
                     console.log('Uploaded a blob or file!');
                     await getDownloadURL(snapshot.ref)
                         .then(async (url) => {
-                            console.log(url);
+                            console.log("URL", url);
 
                             const washingtonRef = doc(db, "product", data.id);
 

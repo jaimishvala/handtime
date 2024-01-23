@@ -14,6 +14,8 @@ import ThemeContext from '../Context/theme.context';
 import Cart from '../container/Cart/Cart';
 import ReviewPage from '../container/Home/ReviewPage';
 import PrivateRoute from './PrivateRoute';
+import WatchData from '../container/Watch/WatchData';
+import Men from '../container/Product/Men';
 
 function UserRoute(props) {
     const theme = useContext(ThemeContext)
@@ -28,12 +30,16 @@ function UserRoute(props) {
                     {/* ReviewPage */}
                     <Route exact path='/ReviewPage/:id' element={<ReviewPage />} />
                     <Route element={<PrivateRoute />}>
-                        <Route exact path='/Watch' element={<Watch />} />
+                        <Route exact path='/Product' element={<Product />} />
+                        <Route exact path='/Men' element={<Men />}/>
+                        <Route exact path='/WatchData/:id' element={<WatchData />} />
+
+                        <Route exact path='/Watch' element={<Watch />}/>
                     </Route>
                     {/* addToCart */}
                     <Route exact path='/Cart' element={<Cart />} />
 
-                    <Route exact path='/Product' element={<Product />} />
+                    {/* <Route exact path='/Product' element={<Product />} /> */}
                     <Route exact path='/About' element={<About />} />
                     <Route exact path='/Contact' element={<Contact />} />
                     <Route exact path='/Testimonial' element={<Testimonial />} />
