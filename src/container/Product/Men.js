@@ -2,40 +2,42 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWatch } from '../../redux/slice/watch.slice';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { getWatchCat } from '../../redux/slice/watchcat.slice';
 
 function Men(props) {
-
-    const [men, setMen] = useState([])
 
     const watch = useSelector(state => state.watch)
     console.log(watch);
 
-    const {id} = useParams()
+    const watchcat = useSelector(state => state.watchcat)
+    console.log(watchcat);
 
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getWatch())
+        dispatch(getWatchCat())
+    }, [])
 
-        const filterData = watch.watch.filter((v) => v.id === id)
-        console.log(filterData);
-        setMen(filterData)
-    }, [id])
-
-    console.log(men);
 
 
     return (
-        <div>
+        <div className='container row'>
             {
-                men.map((v) => {
-                    return (
-                        <div key={v.id}>
-                            <h2>{v.name}</h2>
-                        </div>
-                    )
+                watch.watch.map((v) => {
+                    const menCategory = watchcat.watchcat.find((v1) => v1.category_name === "MENS");
+                    if (menCategory && v.category_id === menCategory.id) {
+                        return (
+                            // <NavLink to={'/WatchData/Product' + v.id}>
+                            <div className='col-lg-3'>
+                                <img src={v.file} style={{ width: "200px", height: "200px" }} />
+                                <h3>{v.name}</h3>
+                                <span>₹{v.price}</span>
+                            </div>
+                            // </NavLink>
+                        )
+                    }
                 })
             }
         </div>

@@ -33,7 +33,7 @@ function Product(props) {
     return (
         <div className='container'>
             <br></br><br></br><br></br>
-            <div className='row'>   
+            <div className='row'>
                 {
                     isLoading ?
                         <Box className="loading" sx={{ display: 'flex' }}>
@@ -45,7 +45,7 @@ function Product(props) {
                                 <div className='watch col-lg-3'>
                                     <img src={v.file} width="200px" height="200px" />
                                     <h4>{v.name}</h4>
-                                    <h6 style={{ color: "black" }}>${v.price}</h6>
+                                    <h6 style={{ color: "black" }}>₹{v.price}</h6>
                                 </div>
                             )
                         })

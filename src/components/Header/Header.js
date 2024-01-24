@@ -164,7 +164,7 @@ function Header() {
                 </div>
                 <div class="col">
                   <section>
-                    <div class="menu-title">WOMENS</div>
+                    <NavLink class="menu-title" to="/Product/Women">WOMENS</NavLink>
                     <ul class="mega-links">
 
 
@@ -186,7 +186,7 @@ function Header() {
                 </div>
                 <div class="col">
                   <section>
-                    <div class="menu-title">WATCHES</div>
+                    <NavLink class="menu-title" to="/Product/Watches">WATCHES</NavLink>
                     <ul class="mega-links">
 
 
