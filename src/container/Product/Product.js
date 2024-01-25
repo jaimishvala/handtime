@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWatch } from '../../redux/slice/watch.slice';
 import { getWatchCat } from '../../redux/slice/watchcat.slice';
+import { NavLink } from 'react-router-dom';
 
 function Product(props) {
     const [isLoading, setIsLoading] = useState(true);
@@ -33,6 +34,7 @@ function Product(props) {
     return (
         <div className='container'>
             <br></br><br></br><br></br>
+
             <div className='row'>
                 {
                     isLoading ?
@@ -43,9 +45,13 @@ function Product(props) {
                         watch.watch.map((v) => {
                             return (
                                 <div className='watch col-lg-3'>
-                                    <img src={v.file} width="200px" height="200px" />
-                                    <h4>{v.name}</h4>
-                                    <h6 style={{ color: "black" }}>₹{v.price}</h6>
+                                    <NavLink to={"/Product/Details/" + v.id}>
+
+                                        <img src={v.file} width="200px" height="200px" />
+                                        <h4>{v.name}</h4>
+                                        <h6 style={{ color: "black" }}>₹{v.price}</h6>
+
+                                    </NavLink>
                                 </div>
                             )
                         })

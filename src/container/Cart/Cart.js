@@ -5,6 +5,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import { ErrorMessage, Form, Formik } from 'formik';
 import * as yup from 'yup';
+import { useEffect } from 'react';
+import { getWatch } from '../../redux/slice/watch.slice';
+import { useParams } from 'react-router-dom';
 
 
 const validationSchema = yup.object().shape({
@@ -61,13 +64,23 @@ function Cart(props) {
     const products = useSelector(state => state.products)
     console.log(products);
 
+    const watch = useSelector(state => state.watch)
+    console.log(watch.watch);
+
+    const { id } = useParams()
+
+
+    useEffect(() => {
+        dispatch(getWatch())
+    }, [id])
+
     const cart = useSelector(state => state.cart)
     console.log(cart);
 
 
 
     const cartData = cart.cart.map((v) => {
-        let ped = products.products.find((p) => p.id === v.id)
+        let ped = watch.watch.find((p) => p.id === v.id)
 
         let fData = { ...ped, qty: v.qty }
         return fData
@@ -172,56 +185,56 @@ function Cart(props) {
                                                         </thead>
                                                         {
                                                             cartData.map((v) => {
-                                                                return (
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <th scope="row">
-                                                                                <div className="d-flex align-items-center">
-                                                                                    <img src="https://www.mastersintime.com/pictures/timex-iq-intelligent-quartz-twg013600-11784217.jpg" className="img-fluid rounded-3" style={{ width: 200 }} alt="Book" />
-                                                                                    <div className="flex-column ms-4">
-                                                                                        <h4 className="mb-2">{v.name}</h4>
-                                                                                        <span>{v.date}</span>
-                                                                                        <p className="mb-0">{v.message}</p>
+                                                                    return (
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <th scope="row">
+                                                                                    <div className="d-flex align-items-center">
+                                                                                        <img src={v.file} className="img-fluid rounded-3" style={{ width: 200 }} alt="Book" />
+                                                                                        <div className="flex-column ms-4">
+                                                                                            <h4 className="mb-2">{v.name}</h4>
+                                                                                            <span style={{ color: "black" }}>₹{v.price}</span>
+                                                                                            <p className="mb-0" style={{ color: "black" }}>{v.desc}</p>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </th>
-                                                                            <td className="align-middle">
-                                                                                <p className="mb-0" style={{ fontWeight: 500 }}>Digital</p>
-                                                                            </td>
-                                                                            <td className="align-middle">
-                                                                                <div className="d-flex flex-row">
-                                                                                    <button onClick={() => handleIncrement(v.id)}>+</button>
-                                                                                    <span>{v.qty}</span>
-                                                                                    <button onClick={() => handleDecrement(v.id)}>-</button>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td className="align-middle">
-                                                                                <p className="mb-0" style={{ fontWeight: 500 }}>{v.price}</p>
-                                                                            </td>
+                                                                                </th>
+                                                                                <td className="align-middle">
+                                                                                    <p className="mb-0" style={{ fontWeight: 500 }}>Digital</p>
+                                                                                </td>
+                                                                                <td className="align-middle">
+                                                                                    <div className="d-flex flex-row">
+                                                                                        <button onClick={() => handleIncrement(v.id)}>+</button>
+                                                                                        <span>{v.qty}</span>
+                                                                                        <button onClick={() => handleDecrement(v.id)}>-</button>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td className="align-middle">
+                                                                                    <p className="mb-0" style={{ fontWeight: 500 }}>{v.price}</p>
+                                                                                </td>
 
-                                                                            <td className='align-middle'>
-                                                                                <DeleteIcon onClick={() => handleDelete(v.id)} />
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
+                                                                                <td className='align-middle'>
+                                                                                    <DeleteIcon onClick={() => handleDelete(v.id)} />
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
 
-                                                                )
+                                                                    )
                                                             })
                                                         }
                                                     </table>
 
                                                     <div className="d-flex justify-content-between" style={{ fontWeight: 500 }}>
-                                                        <p className="mb-2">SubTotal:</p>
-                                                        <p className="mb-2">${total}</p>
+                                                        <p className="mb-2" style={{ color: "black" }}>SubTotal:</p>
+                                                        <p className="mb-2" style={{ color: "black" }}>${total}</p>
                                                     </div>
                                                     <div className="d-flex justify-content-between" style={{ fontWeight: 500 }}>
-                                                        <p className="mb-0">Shipping Tax:</p>
-                                                        <p className="mb-0">${Tax}</p>
+                                                        <p className="mb-0" style={{ color: "black" }}>Shipping Tax:</p>
+                                                        <p className="mb-0" style={{ color: "black" }}>${Tax}</p>
                                                     </div>
                                                     <hr className="my-4" />
                                                     <div className="d-flex justify-content-between mb-4" style={{ fontWeight: 500 }}>
-                                                        <p className="mb-2">Total (tax included):</p>
-                                                        <p className="mb-2">${FinalTotal}</p>
+                                                        <p className="mb-2" style={{ color: "black" }}>Total (tax included):</p>
+                                                        <p className="mb-2" style={{ color: "black" }}>${FinalTotal}</p>
                                                     </div>
 
                                                 </div>
@@ -481,21 +494,21 @@ function Cart(props) {
                                                             </div>
                                                             <div className="col-lg-4 col-xl-3">
                                                                 <div className="d-flex justify-content-between" style={{ fontWeight: 500 }}>
-                                                                    <p className="mb-2">SubTotal:</p>
-                                                                    <p className="mb-2">${total}</p>
+                                                                    <p className="mb-2" style={{ color: "black" }}>SubTotal:</p>
+                                                                    <p className="mb-2" style={{ color: "black" }}>₹{total}</p>
                                                                 </div>
                                                                 <div className="d-flex justify-content-between" style={{ fontWeight: 500 }}>
-                                                                    <p className="mb-0">Shipping Tax:</p>
-                                                                    <p className="mb-0">${Tax}</p>
+                                                                    <p className="mb-0" style={{ color: "black" }}>Shipping Tax:</p>
+                                                                    <p className="mb-0" style={{ color: "black" }}>₹{Tax}</p>
                                                                 </div>
                                                                 <hr className="my-4" />
                                                                 <div className="d-flex justify-content-between mb-4" style={{ fontWeight: 500 }}>
-                                                                    <p className="mb-2">Total (tax included):</p>
-                                                                    <p className="mb-2">${FinalTotal}</p>
+                                                                    <p className="mb-2" style={{ color: "black" }}>Total (tax included):</p>
+                                                                    <p className="mb-2" style={{ color: "black" }}>₹{FinalTotal}</p>
                                                                 </div>
                                                                 <>
                                                                     <button type="submit" className="btn btn-primary btn-block btn-lg" disabled={isSubmitting}>
-                                                                        Pay Bill
+                                                                        Place Order
                                                                     </button>
                                                                 </>
                                                             </div>

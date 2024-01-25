@@ -18,6 +18,7 @@ import WatchData from '../container/Watch/WatchData';
 import Men from '../container/Product/Men';
 import Women from '../container/Product/Women';
 import Watches from '../container/Product/Watches';
+import Details from '../container/Product/Details';
 
 function UserRoute(props) {
     const theme = useContext(ThemeContext)
@@ -33,12 +34,13 @@ function UserRoute(props) {
                     <Route exact path='/ReviewPage/:id' element={<ReviewPage />} />
                     <Route element={<PrivateRoute />}>
                         <Route exact path='/Product' element={<Product />} />
-                        <Route exact path='/Product/Men' element={<Men />}/>
-                        <Route exact path='/Product/Women' element={<Women />}/>
-                        <Route exact path='/Product/Watches' element={<Watches />}/>
-                        <Route exact path='/WatchData/:id' element={<WatchData />} />
+                        <Route exact path='/Product/Men' element={<Men />} />
+                        <Route exact path='/Product/Women' element={<Women />} />
+                        <Route exact path='/Product/Watches' element={<Watches />} />
+                        <Route exact path='/Product/:id' element={<WatchData />} />
+                        <Route exact path='/Product/Details/:id' element={<Details />} />
 
-                        <Route exact path='/Watch' element={<Watch />}/>
+                        <Route exact path='/Watch' element={<Watch />} />
                     </Route>
                     {/* addToCart */}
                     <Route exact path='/Cart' element={<Cart />} />

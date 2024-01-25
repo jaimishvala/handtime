@@ -26,13 +26,13 @@ function Women(props) {
                     const womenCategory = watchcat.watchcat.find((v1) => v1.category_name === "WOMENS")
                     if (womenCategory && v.category_id === womenCategory.id) {
                         return (
-                            // <NavLink to={'/WatchData/Product' + v.id}>
-                            <div className='col-lg-3'>
+                            <div className='watch col-lg-3'>
+                                 <NavLink to={'/Product/Details/' + v.id}>
                                 <img src={v.file} style={{ width: "200px", height: "200px" }} />
                                 <h4>{v.name}</h4>
                                 <span>{v.price}</span>
+                                </NavLink>
                             </div>
-                            // </NavLink>
                         )
                     }
 

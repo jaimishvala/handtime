@@ -151,7 +151,7 @@ function Header() {
                           const menCategory = watchcat.watchcat.find((category) => category.category_name === 'MENS');
                           if (menCategory && subCategory.category_id === menCategory.id) {
                             return (
-                              <li key={subCategory.id}><Link to={'/WatchData/' + subCategory.id}>{subCategory.sub_name}</Link></li>
+                              <li key={subCategory.id}><Link to={'/Product/' + subCategory.id}>{subCategory.sub_name}</Link></li>
                             )
                           } else {
                             return null
@@ -173,7 +173,7 @@ function Header() {
                           const menCategory = watchcat.watchcat.find((category) => category.category_name === 'WOMENS');
                           if (menCategory && subCategory.category_id === menCategory.id) {
                             return (
-                              <li key={subCategory.id}><Link to={'/WatchData/' + subCategory.id}>{subCategory.sub_name}</Link></li>
+                              <li key={subCategory.id}><Link to={'/Product/' + subCategory.id}>{subCategory.sub_name}</Link></li>
                             )
                           } else {
                             return null
@@ -195,7 +195,7 @@ function Header() {
                           const menCategory = watchcat.watchcat.find((category) => category.category_name === 'WATCHES');
                           if (menCategory && subCategory.category_id === menCategory.id) {
                             return (
-                              <li key={subCategory.id}><Link to={'/WatchData/' + subCategory.id}>{subCategory.sub_name}</Link></li>
+                              <li key={subCategory.id}><Link to={'/Product/' + subCategory.id}>{subCategory.sub_name}</Link></li>
                             )
                           } else {
                             return null
