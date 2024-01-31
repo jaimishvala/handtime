@@ -8,10 +8,11 @@ import * as yup from 'yup';
 import { useEffect } from 'react';
 import { getWatch } from '../../redux/slice/watch.slice';
 import { useParams } from 'react-router-dom';
+import { addOrder, getOrder } from '../../redux/slice/order.slice';
 
 
 const validationSchema = yup.object().shape({
-    name: yup.string().required().matches(/^[a-zA-Z]{2,30}$/, "Please Enter Valid Name"),
+    name: yup.string().required(),
     address1: yup.string().required(),
     address2: yup.string().required(),
     city: yup.string().required(),
@@ -20,46 +21,19 @@ const validationSchema = yup.object().shape({
     country: yup.string().required(),
     telephone: yup.number().required(),
     message: yup.string().required(),
-    Name: yup.string().required(),
-    card_number: yup.string().required(),
-    expiry: yup.date().required(),
-    cvv: yup.number().required()
-
 });
 
 
 function Cart(props) {
     const [step, setStep] = useState(1);
 
-
-    const initialValues = {
-        name: '',
-        address1: '',
-        address2: '',
-        city: '',
-        state: '',
-        zip: '',
-        country: '',
-        telephone: '',
-        message: '',
-        Name: '',
-        card_number: '',
-        expiry: '',
-        cvv: ''
-    };
-
-
-    const handleNextStep = () => {
-        if (step < 3) {
-            setStep(step + 1);
-        }
-    };
-
-    const handlePreviousStep = () => {
-        setStep(step - 1);
-    };
+    const auth = useSelector(state => state.auth)
+    console.log(auth.user.uid);
 
     const dispatch = useDispatch()
+    // const user = firebase.auth().currentUser;
+    // const uid = auth ? auth.uid: null;
+    // console.log(uid);
 
     const products = useSelector(state => state.products)
     console.log(products);
@@ -67,17 +41,10 @@ function Cart(props) {
     const watch = useSelector(state => state.watch)
     console.log(watch.watch);
 
+
     const { id } = useParams()
-
-
-    useEffect(() => {
-        dispatch(getWatch())
-    }, [id])
-
     const cart = useSelector(state => state.cart)
-    console.log(cart);
-
-
+    console.log(cart.cart);
 
     const cartData = cart.cart.map((v) => {
         let ped = watch.watch.find((p) => p.id === v.id)
@@ -89,7 +56,7 @@ function Cart(props) {
 
 
 
-    let total = cartData.reduce((acc, v) => acc + (v.price * v.qty), 0)
+    let total = cartData.reduce((acc, v) => acc + (v.price) * v.qty, 0)
     console.log(total);
 
 
@@ -127,9 +94,42 @@ function Cart(props) {
     let Tax = tax1 + tax2 + tax3 + tax4 + tax5 + tax6;
     console.log(Tax);
 
-    let FinalTotal = (total + Tax)
+    let FinalTotal = parseInt(total + Tax)
     console.log(FinalTotal);
 
+    const ProductData = cart.cart.map(product => ({ product_id: product.id, qty: product.qty }))
+
+
+    const initialValues = {
+        uid: auth.user.uid,
+        name: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        zip: '',
+        country: '',
+        telephone: '',
+        message: '',
+        total_amount: FinalTotal,   
+        product: ProductData
+    }
+
+    const handleNextStep = () => {
+        if (step < 3) {
+            setStep(step + 1);
+        }
+    };
+
+    const handlePreviousStep = () => {
+        setStep(step - 1);
+    };
+
+
+    useEffect(() => {
+        dispatch(getWatch())
+        dispatch(getOrder())
+    }, [id])
 
     const handleDecrement = (id) => {
 
@@ -160,6 +160,8 @@ function Cart(props) {
                                 validationSchema={validationSchema}
                                 onSubmit={(values, actions) => {
                                     console.log(values, actions);
+                                    dispatch(addOrder(values))
+
                                     // Simulate API call here (e.g., using setTimeout)
                                     setTimeout(() => {
                                         alert('Payment Submitted Successfully.');
@@ -185,40 +187,40 @@ function Cart(props) {
                                                         </thead>
                                                         {
                                                             cartData.map((v) => {
-                                                                    return (
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <th scope="row">
-                                                                                    <div className="d-flex align-items-center">
-                                                                                        <img src={v.file} className="img-fluid rounded-3" style={{ width: 200 }} alt="Book" />
-                                                                                        <div className="flex-column ms-4">
-                                                                                            <h4 className="mb-2">{v.name}</h4>
-                                                                                            <span style={{ color: "black" }}>₹{v.price}</span>
-                                                                                            <p className="mb-0" style={{ color: "black" }}>{v.desc}</p>
-                                                                                        </div>
+                                                                return (
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                <div className="d-flex align-items-center">
+                                                                                    <img src={v.file} className="img-fluid rounded-3" style={{ width: 200 }} alt="Book" />
+                                                                                    <div className="flex-column ms-4">
+                                                                                        <h4 className="mb-2">{v.name}</h4>
+                                                                                        <span style={{ color: "black" }}>₹{v.price}</span>
+                                                                                        <p className="mb-0" style={{ color: "black" }}>{v.desc}</p>
                                                                                     </div>
-                                                                                </th>
-                                                                                <td className="align-middle">
-                                                                                    <p className="mb-0" style={{ fontWeight: 500 }}>Digital</p>
-                                                                                </td>
-                                                                                <td className="align-middle">
-                                                                                    <div className="d-flex flex-row">
-                                                                                        <button onClick={() => handleIncrement(v.id)}>+</button>
-                                                                                        <span>{v.qty}</span>
-                                                                                        <button onClick={() => handleDecrement(v.id)}>-</button>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td className="align-middle">
-                                                                                    <p className="mb-0" style={{ fontWeight: 500 }}>{v.price}</p>
-                                                                                </td>
+                                                                                </div>
+                                                                            </th>
+                                                                            <td className="align-middle">
+                                                                                <p className="mb-0" style={{ fontWeight: 500 }}>Digital</p>
+                                                                            </td>
+                                                                            <td className="align-middle">
+                                                                                <div className="d-flex flex-row">
+                                                                                    <button onClick={() => handleIncrement(v.id)}>+</button>
+                                                                                    <span>{v.qty}</span>
+                                                                                    <button onClick={() => handleDecrement(v.id)}>-</button>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td className="align-middle">
+                                                                                <p className="mb-0" style={{ fontWeight: 500, color: "black" }}>₹{v.price}</p>
+                                                                            </td>
 
-                                                                                <td className='align-middle'>
-                                                                                    <DeleteIcon onClick={() => handleDelete(v.id)} />
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
+                                                                            <td className='align-middle'>
+                                                                                <DeleteIcon onClick={() => handleDelete(v.id)} />
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
 
-                                                                    )
+                                                                )
                                                             })
                                                         }
                                                     </table>
@@ -364,12 +366,6 @@ function Cart(props) {
                                                                     />
                                                                     <ErrorMessage name='message' />
                                                                 </label>
-                                                                {/* <div className="mb-3">
-                                                                <button type="submit" className="btn btn-primary px-3 rounded-3">
-                                                                    Save
-                                                                </button>
-                                                            </div> */}
-                                                                {/* <button type='submit'>Save</button> */}
                                                             </form>
                                                         </div>
                                                     </div>
@@ -382,7 +378,20 @@ function Cart(props) {
                                                 <div className="card shadow-2-strong mb-5 mb-lg-0" style={{ borderRadius: 16 }}>
                                                     <div className="card-body p-4">
                                                         <div className="row">
-                                                            <div className="col-md-6 col-lg-4 col-xl-3 mb-4 mb-md-0">
+                                                            <div className="col-sm-6">
+                                                                {
+                                                                    cartData.map((v) => {
+                                                                        return (
+                                                                            <div>
+                                                                                <img src={v.file} style={{ width: "300px", height: "300px" }} />
+                                                                                <h2>{v.name}</h2>
+                                                                                <h6>₹{v.price}</h6>
+                                                                            </div>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </div>
+                                                            {/* <div className="col-md-6 col-lg-4 col-xl-3 mb-4 mb-md-0">
                                                                 <form>
                                                                     <div className="d-flex flex-row pb-3">
                                                                         <div className="d-flex align-items-center pe-2">
@@ -390,7 +399,6 @@ function Cart(props) {
                                                                         </div>
                                                                         <div className="rounded border w-100 p-3">
                                                                             <p className="d-flex align-items-center mb-0">
-                                                                                {/* <i className="fab fa-cc-mastercard fa-2x text-dark pe-2" /> */}
                                                                                 <img src='../../assets/images/credit.jpg' style={{ width: "30px" }} />
                                                                                 Credit Card
                                                                             </p>
@@ -402,7 +410,6 @@ function Cart(props) {
                                                                         </div>
                                                                         <div className="rounded border w-100 p-3">
                                                                             <p className="d-flex align-items-center mb-0">
-                                                                                {/* <i className="fab fa-cc-visa fa-2x fa-lg text-dark pe-2" /> */}
                                                                                 <img src='../../assets/images/visa.jpg' style={{ width: "30px" }} />
                                                                                 Debit Card
                                                                             </p>
@@ -414,15 +421,14 @@ function Cart(props) {
                                                                         </div>
                                                                         <div className="rounded border w-100 p-3">
                                                                             <p className="d-flex align-items-center mb-0">
-                                                                                {/* <i className="fab fa-cc-paypal fa-2x fa-lg text-dark pe-2" /> */}
                                                                                 <img src='../../assets/images/paypal.png' style={{ width: "30px" }} />
                                                                                 PayPal
                                                                             </p>
                                                                         </div>
                                                                     </div>
                                                                 </form>
-                                                            </div>
-                                                            <div className="col-md-6 col-lg-4 col-xl-6">
+                                                            </div> */}
+                                                            {/* <div className="col-md-6 col-lg-4 col-xl-6">
                                                                 <div className="row">
                                                                     <div className="col-12 col-xl-6">
                                                                         <div className="form-outline mb-4 mb-xl-5">
@@ -491,7 +497,7 @@ function Cart(props) {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> */}
                                                             <div className="col-lg-4 col-xl-3">
                                                                 <div className="d-flex justify-content-between" style={{ fontWeight: 500 }}>
                                                                     <p className="mb-2" style={{ color: "black" }}>SubTotal:</p>

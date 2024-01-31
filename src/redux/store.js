@@ -11,7 +11,7 @@ import createSagaMiddleware from 'redux-saga'
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['products', 'cart','auth'] // only navigation will be persisted
+    whitelist: ['products', 'cart','auth','order'] // only navigation will be persisted
 
 }
 

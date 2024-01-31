@@ -6,6 +6,7 @@ import watchcatReducer from "../slice/watchcat.slice";
 import watchsubcatReducer from "../slice/watchsub.slice";
 import { authReducer } from "./auth.reducer";
 import alertReducer from "../slice/alert.slice";
+import orderReducer from "../slice/order.slice";
 
 
 export const rootReducer = combineReducers({
@@ -15,5 +16,6 @@ export const rootReducer = combineReducers({
     watchcat: watchcatReducer,
     watchsubcat: watchsubcatReducer,
     auth: authReducer,
-    alert: alertReducer
+    alert: alertReducer,
+    order: orderReducer
 })

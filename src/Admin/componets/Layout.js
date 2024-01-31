@@ -23,6 +23,7 @@ import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantity
 import WatchIcon from '@mui/icons-material/Watch';
 import CategoryIcon from '@mui/icons-material/Category';
 import ClassIcon from '@mui/icons-material/Class';
+import StoreIcon from '@mui/icons-material/Store';
 
 
 const drawerWidth = 240;
@@ -108,8 +109,9 @@ function Layout({ children }) {
     const iconItem = [
         // { lebel: "Products", icon: <ProductionQuantityLimitsIcon />, to: "/Admin/Products/" },
         { lebel: 'Category', icon: <CategoryIcon />, to: "/Admin/WatchCat" },
-        { lebel: 'SubCategory',icon:<ClassIcon /> ,to: '/Admin/SubCategory' },
-        { lebel: 'Products', icon: <ProductionQuantityLimitsIcon />, to: "/Admin/SmartWatch/" }
+        { lebel: 'SubCategory', icon: <ClassIcon />, to: '/Admin/SubCategory' },
+        { lebel: 'Products', icon: <ProductionQuantityLimitsIcon />, to: "/Admin/SmartWatch" },
+        { lebel: 'Order', icon: <StoreIcon />, to: "/Admin/Order" }
     ]
 
     return (
