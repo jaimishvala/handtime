@@ -111,7 +111,7 @@ function Cart(props) {
         country: '',
         telephone: '',
         message: '',
-        total_amount: FinalTotal,   
+        total_amount: FinalTotal,
         product: ProductData
     }
 
@@ -162,7 +162,6 @@ function Cart(props) {
                                     console.log(values, actions);
                                     dispatch(addOrder(values))
 
-                                    // Simulate API call here (e.g., using setTimeout)
                                     setTimeout(() => {
                                         alert('Payment Submitted Successfully.');
                                         actions.setSubmitting(false);

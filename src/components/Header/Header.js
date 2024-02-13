@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import ThemeContext from '../../Context/theme.context';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
@@ -23,9 +23,15 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-function Header() {
+function Header({ setResult }) {
 
   let auth = useSelector(state => state.auth)
+
+  const order = useSelector(state => state.order)
+  console.log(order.order);
+
+  const allOrder = order.order
+
 
   const theme = useContext(ThemeContext)
 
@@ -37,6 +43,7 @@ function Header() {
   const watchcat = useSelector(state => state.watchcat)
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getWatchSubCat())
@@ -46,6 +53,20 @@ function Header() {
   const handleLogOut = () => {
     console.log("logOut");
     dispatch(logoutRequest());
+
+  }
+
+  const handleOrderData = (value) => {
+    console.log(value);
+    setResult(allOrder)
+    if (value === 'my_order') {
+      navigate('/OrderData')
+    }
+    // setResult(value);
+    // let path = "/OrderData" + ' ' + value;
+    // console.log(path);
+    // history.push(path);
+
 
   }
 
@@ -220,6 +241,20 @@ function Header() {
             <NavLink className={({ isActive }) => isActive ? "nav-link scrollto active" : "nav-link scrollto"} to="/Contact" >Contact Us</NavLink>
           </li>
         </ul>
+
+
+        <div className="form-group col-md-4">
+          <select
+            id="order_data"
+            name='order_data'
+            onChange={(e) => handleOrderData(e.target.value)}
+            className="form-control"
+            style={{ width: "25%" }}
+          >
+            <option value="0">--Select Option--</option>
+            <option value="my_order">My Order</option>
+          </select>
+        </div>
 
         {
           auth.user ?

@@ -2,13 +2,11 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import IconButton from '@mui/material/IconButton';
 import { useDispatch, useSelector } from 'react-redux';
-import OrderForm from './OrderForm';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import { addOrder, deleteOrder, getOrder, updateOrder } from '../../../redux/slice/order.slice';
+import { NavLink } from 'react-router-dom';
+import { useNavigate, createSearchParams } from "react-router-dom";
 
 function Order(props) {
     const [update, setUpdate] = useState(false)
@@ -19,36 +17,8 @@ function Order(props) {
 
     useEffect(() => {
         dispatch(getOrder())
+        // setUpdate(false)
     }, [])
-
-    const handleFormSubmit = (data) => {
-        console.log(data);
-        if (update) {
-            dispatch(updateOrder(data))
-        } else {
-            dispatch(addOrder(data))
-        }
-
-        setUpdate(false)
-    }
-
-    const handleDelet = (id) => {
-        dispatch(deleteOrder(id))
-    }
-
-    const handleEdit = (data) => {
-        setUpdate(data)
-    }
-
-    const handleView = () => {
-        console.log("view");
-
-        const data = order.order.map((v) => {
-            console.log(v);
-        })
-    }
-
-
 
     const columns = [
         {
@@ -59,47 +29,48 @@ function Order(props) {
                 return params.row.product.map((product) => product.product_id).join(', ');
             }
         },
-        { field: 'total_amount', headerName: 'Total Amount', width: 200 },
+        { field: 'total_amount', headerName: 'Total Amount', width: 180 },
         { field: 'uid', headerName: 'UID', width: 200 },
         {
-            field: 'address', headerName: 'Address', width: 200,
+            field: 'address', headerName: 'Address', width: 600,
             renderCell: (params) => {
-                console.log(params.row);
 
-                return order.order.map((v) => v.zip)
+                console.log(params.row.product);
+
+                return params.row.address1 + "," + params.row.city + "," + params.row.state + "," + params.row.country + "," + params.row.zip + "," + params.row.telephone;
             }
         },
         {
             field: "action",
             headerName: "Action",
-            width: 130,
+            width: 180,
+
             renderCell: (params) => {
                 return (
-                    <>
-
-                        <IconButton aria-label="view" onClick={() => handleView(params.row)}>
-                            <ViewListIcon />
-                        </IconButton>
-
-                        <IconButton aria-label="delete" onClick={() => handleDelet(params.row.id)}>
-                            <DeleteIcon />
-                        </IconButton>
-
-                        <IconButton aria-label="edit" onClick={() => handleEdit(params.row)}>
-                            <EditIcon />
-                        </IconButton>
-                    </>
+                    <ViewListIcon />
                 )
-            },
-        }
 
+            }
+        }
     ];
+
+    const navigate = useNavigate();
+
+    const handleOnCellClick = (params) => {
+        const currentRow = params.row;
+        const options = {
+            pathname: "/Admin/OrderList",
+            search: `?${createSearchParams(currentRow)}`
+        };
+        navigate(options, { replace: true });
+    };
+
     return (
         <div>
-            <OrderForm onHandleSubmit={handleFormSubmit} updateData={update} />
+
             <br></br>
             <div style={{ height: 400, width: '100%' }}>
-
+                <h2>Order:</h2>
                 <DataGrid
                     rows={order.order}
                     columns={columns}
@@ -110,6 +81,7 @@ function Order(props) {
                     }}
                     pageSizeOptions={[5, 10]}
                     checkboxSelection
+                    onCellClick={handleOnCellClick}
                 />
             </div>
         </div>

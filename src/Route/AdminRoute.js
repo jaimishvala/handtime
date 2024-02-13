@@ -7,6 +7,7 @@ import WatchCat from '../Admin/container/WatchList/WatchCat';
 import SubCategory from '../Admin/container/WatchList/SubCategory';
 import PrivateRoute from './PrivateRoute';
 import Order from '../Admin/container/Order/Order';
+import OrderList from '../Admin/container/Order/OrderList';
 
 function AdminRoute(props) {
     return (
@@ -19,6 +20,7 @@ function AdminRoute(props) {
                         <Route exact path='/WatchCat' element={<WatchCat />} />
                         <Route exact path='/SubCategory' element={<SubCategory />} />
                         <Route exact path='/Order' element={<Order />} />
+                        <Route exact path='/OrderList' element={<OrderList />}/>
                     </Route>
                 </Routes>
             </Layout>

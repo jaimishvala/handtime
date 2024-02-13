@@ -19,15 +19,20 @@ import Men from '../container/Product/Men';
 import Women from '../container/Product/Women';
 import Watches from '../container/Product/Watches';
 import Details from '../container/Product/Details';
+import OrderData from '../container/OrderData/OrderData';
+import { useSelector } from 'react-redux';
 
 function UserRoute(props) {
+
+    const [result, setResult] = useState([])
+console.log(result);
     const theme = useContext(ThemeContext)
     console.log(theme);
 
     return (
         <>
             <div className={`${theme.theme}`}>
-                <Header />
+                <Header setResult={setResult}/>
                 <Routes>
                     <Route exact path='/' element={<Home />} />
                     {/* ReviewPage */}
@@ -41,6 +46,8 @@ function UserRoute(props) {
                         <Route exact path='/Product/Details/:id' element={<Details />} />
 
                         <Route exact path='/Watch' element={<Watch />} />
+
+                        <Route exact path='/OrderData' element={<OrderData result={result}/>} />
                     </Route>
                     {/* addToCart */}
                     <Route exact path='/Cart' element={<Cart />} />

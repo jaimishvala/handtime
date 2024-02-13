@@ -3,8 +3,6 @@ import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase
 import { auth, db, storage } from "../../firebase";
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-
-
 const initialState = {
     isLoading: false,
     order: [],
@@ -26,7 +24,6 @@ export const getOrder = createAsyncThunk(
         return data;
     }
 )
-
 
 export const addOrder = createAsyncThunk(
     'order/post',
@@ -57,20 +54,21 @@ export const deleteOrder = createAsyncThunk(
 
 export const updateOrder = createAsyncThunk(
     'order/put',
+    async ({ id, status }) => {
+        const orderRef = doc(db, "order", id);
 
-    async (data) => {
-        console.log(data);
+        try {
+            await updateDoc(orderRef, {
+                status: status,
+            });
 
-        const washingtonRef = doc(db, "order", data.id);
-
-        let orderData = { ...data, id: data.id };
-        delete orderData.id;
-
-        await updateDoc(washingtonRef, orderData);
-
-        return data;
+            return { id, status };
+        } catch (error) {
+            console.error("Error updating order status:", error);
+            throw error;
+        }
     }
-)
+);
 
 export const orderSlice = createSlice({
     name: 'order',
@@ -97,16 +95,18 @@ export const orderSlice = createSlice({
         })
 
         builder.addCase(updateOrder.fulfilled, (state, action) => {
+            const { id, status } = action.payload;
+
             state.isLoading = false;
             state.order = state.order.map((v) => {
-                if (v.id === action.payload.id) {
-                    return action.payload;
+                if (v.id === id) {
+                    return { ...v, status };
                 } else {
                     return v;
                 }
-            })
+            });
             state.error = null;
-        })
+        });
 
     }
 });

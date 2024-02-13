@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { getWatch } from '../../redux/slice/watch.slice';
 import { useState } from 'react';
 
@@ -28,10 +28,12 @@ function WatchData() {
                 {filterData.map((item) => {
                     return (
                         <div key={item.id} className='watch col-lg-3'>
-                            <img src={item.file} width={"200px"} height={"200px"} />
-                            <h4 style={{ color: 'black' }}>{item.name}</h4>
-                            <p style={{ color: 'black' }}>{item.desc}</p>
-                            <p style={{ color: 'black' }}>₹{item.price}</p>
+                            <NavLink to={"/Product/Details/" + item.id}>
+                                <img src={item.file} width={"200px"} height={"200px"} />
+                                <h4 style={{ color: 'black' }}>{item.name}</h4>
+                                <p style={{ color: 'black' }}>{item.desc}</p>
+                                <p style={{ color: 'black' }}>₹{item.price}</p>
+                            </NavLink>
                         </div>
                     )
                 }
