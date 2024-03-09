@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import ThemeContext from '../../Context/theme.context';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
@@ -31,7 +31,7 @@ function Header({ setResult }) {
   console.log(order.order);
 
   const allOrder = order.order
-
+  console.log(allOrder);
 
   const theme = useContext(ThemeContext)
 
@@ -57,19 +57,20 @@ function Header({ setResult }) {
   }
 
   const handleOrderData = (value) => {
-    console.log(value);
-    setResult(allOrder)
     if (value === 'my_order') {
-      navigate('/OrderData')
+      const userUid = auth.user.uid;
+      console.log(userUid);
+
+      // Filter order data based on user UID
+      const userOrders = allOrder.filter(order => order.uid === userUid);
+      console.log(userOrders);
+
+      setResult(userOrders);
+      navigate('/OrderData');
+    } else {
+      navigate('/');
     }
-    // setResult(value);
-    // let path = "/OrderData" + ' ' + value;
-    // console.log(path);
-    // history.push(path);
-
-
   }
-
 
   return (
 
@@ -155,7 +156,7 @@ function Header({ setResult }) {
         </div>
         <ul class="menu-items">
           <li className="nav-item">
-            <NavLink className={({ isActive }) => isActive ? "nav-link scrollto active" : "nav-link scrollto"} to="/">Home</NavLink>
+            <NavLink className={({ isActive }) => isActive ? "nav-link scrollto active" : "nav-link scrollto"} style={{borderColor:"orange"}} to="/">Home</NavLink>
           </li>
 
           <li>
@@ -249,11 +250,27 @@ function Header({ setResult }) {
             name='order_data'
             onChange={(e) => handleOrderData(e.target.value)}
             className="form-control"
-            style={{ width: "25%" }}
+            style={{ width: "30%" }}
           >
             <option value="0">--Select Option--</option>
             <option value="my_order">My Order</option>
           </select>
+        </div>
+
+        {
+          theme.theme === 'light' ?
+            <DarkModeOutlinedIcon onClick={() => theme.toggleTheme(theme.theme)} /> :
+            <LightModeOutlinedIcon onClick={() => theme.toggleTheme(theme.theme)} />
+        }
+
+        <div className="user_optio_box">
+          <Link to="/Cart">
+            <IconButton aria-label="cart">
+              <StyledBadge badgeContent={cartCount} color="secondary">
+                <i className="fa fa-shopping-cart" aria-hidden="true" />
+              </StyledBadge>
+            </IconButton>
+          </Link>
         </div>
 
         {
@@ -272,23 +289,6 @@ function Header({ setResult }) {
               </IconButton>
             </Link>
         }
-
-
-        {
-          theme.theme === 'light' ?
-            <DarkModeOutlinedIcon onClick={() => theme.toggleTheme(theme.theme)} /> :
-            <LightModeOutlinedIcon onClick={() => theme.toggleTheme(theme.theme)} />
-        }
-
-        <div className="user_optio_box">
-          <Link to="/Cart">
-            <IconButton aria-label="cart">
-              <StyledBadge badgeContent={cartCount} color="secondary">
-                <i className="fa fa-shopping-cart" aria-hidden="true" />
-              </StyledBadge>
-            </IconButton>
-          </Link>
-        </div>
 
       </header>
 

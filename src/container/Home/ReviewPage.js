@@ -33,7 +33,7 @@ function ReviewPage(props) {
             <div className='container reviewPage'>
                 <h2>Review Pages:</h2>
                 <h3>{review.name}</h3>
-                <p>{review.body}</p>
+                <h6>{review.body}</h6>
             </div>
             <br></br><br></br><br></br>
         </div>

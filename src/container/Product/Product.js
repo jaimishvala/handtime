@@ -32,10 +32,10 @@ function Product(props) {
 
 
     return (
-        <div className='container'>
-            <br></br><br></br><br></br>
+        <div>
+            <br></br>
 
-            <div className='row'>
+            <div className='row' style={{justifyContent:"center"}}>
                 {
                     isLoading ?
                         <Box className="loading" sx={{ display: 'flex' }}>
@@ -48,8 +48,8 @@ function Product(props) {
                                     <NavLink to={"/Product/Details/" + v.id}>
 
                                         <img src={v.file} width="200px" height="200px" />
-                                        <h4>{v.name}</h4>
-                                        <h6 style={{ color: "black" }}>₹{v.price}</h6>
+                                        <h4 style={{color:"gray"}}>{v.name}</h4>
+                                        <h6 style={{color:"gray"}}>₹{v.price}</h6>
 
                                     </NavLink>
                                 </div>

@@ -6,7 +6,7 @@ function Footer(props) {
 
             <div>
                 <section className="info_section layout_padding2">
-                    <div className="container">
+                    <div>
                         <div className="info_logo">
                             <h2>
                                 HandTime
@@ -49,7 +49,7 @@ function Footer(props) {
                                     <h5>
                                         Informations
                                     </h5>
-                                    <p>
+                                    <p style={{textAlign:"start"}}>
                                         ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                     </p>
                                 </div>

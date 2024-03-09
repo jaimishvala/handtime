@@ -110,7 +110,7 @@ export default function SmartWatch(props) {
                             paginationModel: { page: 0, pageSize: 5 },
                         },
                     }}
-                    pageSizeOptions={[5, 10]}
+                    pageSizeOptions={[5, 20]}
                     checkboxSelection
                 />
             </div>

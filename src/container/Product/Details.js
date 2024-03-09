@@ -25,23 +25,25 @@ function Details(props) {
 
 
     return (
-        <div className='row'>
-            {
-                watch.watch.map((v) => {
-                    if (v.id === id) {
-                        return (
-                            <div className='watch col-lg-3'>
-                                <img src={v.file} width={"200px"} height={"200px"} alt={v.name} />
-                                <h4 style={{ color: 'black' }}>{v.name}</h4>
-                                <p style={{ color: 'black' }}>{v.desc}</p>
-                                <p style={{ color: 'black' }}>₹{v.price}</p>
-                                <button className='btn_cart' onClick={() => handleCart(v.id)}>Add To Card</button>
-                            </div>
-                        )
-                    }
-                })
+        <div className='container'>
+            <div className='row'>
+                {
+                    watch.watch.map((v) => {
+                        if (v.id === id) {
+                            return (
+                                <div className='watch col-lg-3'>
+                                    <img src={v.file} width={"200px"} height={"200px"} alt={v.name} />
+                                    <h4 style={{ color: 'gray' }}>{v.name}</h4>
+                                    <p style={{ color: 'gray' }}>{v.desc}</p>
+                                    <p style={{ color: 'gray' }}>₹{v.price}</p>
+                                    <button className='btn_cart' onClick={() => handleCart(v.id)}>Add To Card</button>
+                                </div>
+                            )
+                        }
+                    })
 
-            }
+                }
+            </div>
         </div>
     );
 }

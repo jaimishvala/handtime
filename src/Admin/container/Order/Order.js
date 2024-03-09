@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import { addOrder, deleteOrder, getOrder, updateOrder } from '../../../redux/slice/order.slice';
-import { NavLink } from 'react-router-dom';
 import { useNavigate, createSearchParams } from "react-router-dom";
 
 function Order(props) {
@@ -17,7 +16,6 @@ function Order(props) {
 
     useEffect(() => {
         dispatch(getOrder())
-        // setUpdate(false)
     }, [])
 
     const columns = [

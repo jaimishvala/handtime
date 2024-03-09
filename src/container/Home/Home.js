@@ -1,8 +1,22 @@
 import React from 'react';
 import Review from './Review';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getWatch } from '../../redux/slice/watch.slice';
 
 
 function Home(props) {
+    const watchcat = useSelector(state => state.watchcat)
+    const watch = useSelector(state => state.watch)
+
+    console.log(watch.watch);
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getWatch())
+    }, [])
     return (
         <div>
             <div className="hero_area">
@@ -79,6 +93,9 @@ function Home(props) {
 
             <section className="about_section layout_padding">
                 <div className="container-fluid">
+                    <h2 style={{ backgroundColor: "#8019c8" }}>
+                        About
+                    </h2>
                     <div className="row">
                         <div className="col-md-6">
                             <div className="img_container">
@@ -87,7 +104,7 @@ function Home(props) {
                                 </div>
                                 <div className="img-box b2">
                                     <img src="assets/images/a-2.jpg" alt />
-                                </div>
+                                </div>  
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -100,16 +117,109 @@ function Home(props) {
                                     There are many variations of
                                     passages of Lorem Ipsum
                                 </p>
-                                <a href>
+                                <Link to="/About">
                                     Read More
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section className="product_section ">
+            <section className='product_section '>
+                <div className='product_space'>
+                    <div className="product_heading" style={{ marginLeft: "10px" }}>
+                        <h2>
+                            Men's Watches
+                        </h2>
+                    </div>
+                    <div className='row' style={{ justifyContent: "space-evenly" }}>
+                        {
+                            watch.watch.map((v) => {
+                                const menCategory = watchcat.watchcat.find((v1) => v1.category_name === "MENS");
+                                if (menCategory && v.category_id === menCategory.id) {
+                                    return (
+                                        <div className='watch col-lg-2'>
+                                            <NavLink to={'/Product/Details/' + v.id}>
+
+                                                <img src={v.file} style={{ width: "200px", height: "200px" }} />
+                                                <h3 style={{ color: "gray" }}>{v.name}</h3>
+                                                <span style={{ color: "gray" }}>₹{v.price}</span>
+
+                                            </NavLink>
+                                        </div>
+                                    )
+                                }
+                            })
+                        }
+                    </div>
+                </div>
+            </section>
+
+
+            <section className='product_section '>
+                <div className='product_space'>
+                    <div className="product_heading" style={{ marginLeft: "10px" }}>
+                        <h2>
+                            Women's Watches
+                        </h2>
+                    </div>
+                    <div className='row' style={{ justifyContent: "space-evenly" }}>
+                        {
+                            watch.watch.map((v) => {
+                                const menCategory = watchcat.watchcat.find((v1) => v1.category_name === "WOMENS");
+                                if (menCategory && v.category_id === menCategory.id) {
+                                    return (
+                                        <div className='watch col-lg-2'>
+                                            <NavLink to={'/Product/Details/' + v.id}>
+
+                                                <img src={v.file} style={{ width: "200px", height: "200px" }} />
+                                                <h3 style={{ color: "gray" }}>{v.name}</h3>
+                                                <span style={{ color: "gray" }}>₹{v.price}</span>
+
+                                            </NavLink>
+                                        </div>
+                                    )
+                                }
+                            })
+                        }
+                    </div>
+                </div>
+            </section>
+
+
+            <section className='product_section'>
+                <div className='product_space'>
+                    <div className="product_heading" style={{ marginLeft: "10px" }}>
+                        <h2>
+                            Watches
+                        </h2>
+                    </div>
+                    <div className='row' style={{ justifyContent: "space-evenly" }}>
+                        {
+                            watch.watch.map((v) => {
+                                const menCategory = watchcat.watchcat.find((v1) => v1.category_name === "WATCHES");
+                                if (menCategory && v.category_id === menCategory.id) {
+                                    return (
+                                        <div className='watch col-lg-2'>
+                                            <NavLink to={'/Product/Details/' + v.id}>
+
+                                                <img src={v.file} style={{ width: "200px", height: "200px" }} />
+                                                <h3 style={{ color: "gray" }}>{v.name}</h3>
+                                                <span style={{ color: "gray" }}>₹{v.price}</span>
+
+                                            </NavLink>
+                                        </div>
+                                    )
+                                }
+                            })
+                        }
+                    </div>
+                </div>
+            </section>
+
+
+            {/* <section className="product_section ">
                 <div className="container">
                     <div className="product_heading">
                         <h2>
@@ -221,9 +331,9 @@ function Home(props) {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
-            <section className="product_section ">
+            {/* <section className="product_section ">
                 <div className="container">
                     <div className="product_heading">
                         <h2>
@@ -335,12 +445,12 @@ function Home(props) {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             <section className="client_section layout_padding-bottom">
-                <div className="container">
+                <div>
                     <div className="heading_container heading_center">
-                        <h2>
+                        <h2 style={{ backgroundColor: "#8019c8", color: "white", paddingTop: "8px", paddingBottom: "8px", paddingLeft: "20px", paddingRight: "20px" }}>
                             Testimonial
                         </h2>
                     </div>
@@ -348,12 +458,12 @@ function Home(props) {
 
                 <br></br><br></br>
 
-                <Review />
+                {/* <Review /> */}
 
                 <div id="customCarousel2" className="carousel slide" data-ride="carousel">
                     <div className="carousel-inner">
                         <div className="carousel-item active">
-                            <div className="container">
+                            <div>
                                 <div className="row">
                                     <div className="col-md-10 mx-auto">
                                         <div className="box">

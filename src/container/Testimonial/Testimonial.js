@@ -15,29 +15,15 @@ function Testimonial(props) {
     }, [])
 
     return (
-        <div className='container'>
+        <div>
             <section className="client_section layout_padding-bottom">
-                <div className="container">
-                    <div className="heading_container heading_center">
-                        <h2>
-                            Testimonial
-                        </h2>
-                    </div>
-                    <br></br><br></br><br></br>
-                    <div className='row'>
-                        {
-                            watchcat.watchcat.map((v) => {
 
-                                return (
-                                    <div className='watch col-lg-3'>
-                                        <h4>{v.category_name}</h4>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-
+                <div className="heading_container heading_center">
+                    <h2>
+                        Testimonial
+                    </h2>
                 </div>
+
                 <div id="customCarousel2" className="carousel slide" data-ride="carousel">
                     <div className="carousel-inner">
                         <div className="carousel-item active">
@@ -60,7 +46,7 @@ function Testimonial(props) {
                                                     </div>
                                                     <i className="fa fa-quote-left" aria-hidden="true" />
                                                 </div>
-                                                <p>
+                                                <p style={{ color: "gray" }}>
                                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                                                     labore
                                                     et

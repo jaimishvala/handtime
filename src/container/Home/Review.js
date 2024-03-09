@@ -30,7 +30,7 @@ export default function Review(props) {
     })
 
     return (
-        <div className='container'>
+        <div>
             <Swiper
                 slidesPerView={2}
                 spaceBetween={20}
@@ -61,7 +61,7 @@ export default function Review(props) {
                                 <SwiperSlide>
                                     <Link to={"/ReviewPage/" + v.id}>
                                         <div className='swiper_card'>
-                                            <h2>{v.name.substring(0, 10)}</h2>
+                                            <h2 style={{paddingTop:"30px"}}>{v.name.substring(0, 10)}</h2>
                                             <span>{v.body.substring(0, 150)}</span>
                                         </div>
                                     </Link>
